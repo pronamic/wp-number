@@ -6,6 +6,11 @@
 			"Pronamic\\WordPress\\Number\\": "src"
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"Pronamic\\WordPress\\Number\\": "tests\\src"
+		}
+	},
 	"config": {
 		"sort-packages": true
 	},

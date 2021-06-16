@@ -33,46 +33,46 @@ interface Calculator {
 	 *
 	 * @link https://github.com/moneyphp/money/blob/v3.2.1/src/Calculator.php#L30-L38
 	 *
-	 * @param string $value  Value.
-	 * @param string $addend Addend.
+	 * @param Number $value  Value.
+	 * @param Number $addend Addend.
 	 *
-	 * @return string
+	 * @return Number
 	 */
-	public function add( $value, $addend );
+	public function add( Number $value, Number $addend );
 
 	/**
 	 * Subtract subtrahend from amount.
 	 *
 	 * @link https://github.com/moneyphp/money/blob/v3.2.1/src/Calculator.php#L40-L48
 	 *
-	 * @param string $value      Value.
-	 * @param string $subtrahend Subtrahend.
+	 * @param Number $value      Value.
+	 * @param Number $subtrahend Subtrahend.
 	 *
-	 * @return string
+	 * @return Number
 	 */
-	public function subtract( $value, $subtrahend );
+	public function subtract( Number $value, Number $subtrahend );
 
 	/**
 	 * Multiply amount with multiplier.
 	 *
 	 * @link https://github.com/moneyphp/money/blob/v3.2.1/src/Calculator.php#L50-L58
 	 *
-	 * @param string           $value      Value.
-	 * @param int|float|string $multiplier Multiplier.
+	 * @param Number $value      Value.
+	 * @param Number $multiplier Multiplier.
 	 *
 	 * @return string
 	 */
-	public function multiply( $value, $multiplier );
+	public function multiply( Number $value, Number$multiplier );
 
 	/**
 	 * Divide amount with divisor.
 	 *
 	 * @link https://github.com/moneyphp/money/blob/v3.2.1/src/Calculator.php#L60-L68
 	 *
-	 * @param string           $value   Value.
-	 * @param int|float|string $divisor Divisor.
+	 * @param Number $value   Value.
+	 * @param Number $divisor Divisor.
 	 *
-	 * @return string|null
+	 * @return Number
 	 */
-	public function divide( $value, $divisor );
+	public function divide( Number $value, Number $divisor );
 }

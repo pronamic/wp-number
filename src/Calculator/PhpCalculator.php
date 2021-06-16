@@ -11,9 +11,10 @@
 namespace Pronamic\WordPress\Number\Calculator;
 
 use Pronamic\WordPress\Number\Calculator;
+use Pronamic\WordPress\Number\Number;
 
 /**
- * GMP Calculator
+ * PHP Calculator
  *
  * @author  Remco Tolsma
  * @version 1.2.2
@@ -32,15 +33,13 @@ class PhpCalculator implements Calculator {
 	 *
 	 * @link https://github.com/moneyphp/money/blob/v3.2.1/src/Calculator/PhpCalculator.php#L30-L40
 	 *
-	 * @param string $value  Value.
-	 * @param string $addend Addend.
+	 * @param Number $number Value.
+	 * @param Number $addend Addend.
 	 *
-	 * @return string
+	 * @return Number
 	 */
-	public function add( $value, $addend ) {
-		$result = floatval( $value ) + floatval( $addend );
-
-		return strval( $result );
+	public function add( Number $number, Number $addend ) {
+		return Number::from_mixed( $number->get_value() + $addend->get_value() );
 	}
 
 	/**
@@ -48,15 +47,13 @@ class PhpCalculator implements Calculator {
 	 *
 	 * @link https://github.com/moneyphp/money/blob/v3.2.1/src/Calculator/PhpCalculator.php#L42-L52
 	 *
-	 * @param string $value      Value.
-	 * @param string $subtrahend Subtrahend.
+	 * @param Number $number     Value.
+	 * @param Number $subtrahend Subtrahend.
 	 *
-	 * @return string
+	 * @return Number
 	 */
-	public function subtract( $value, $subtrahend ) {
-		$result = floatval( $value ) - floatval( $subtrahend );
-
-		return strval( $result );
+	public function subtract( Number $number, Number $subtrahend ) {
+		return Number::from_mixed( $number->get_value() - $subtrahend->get_value() );
 	}
 
 	/**
@@ -64,15 +61,13 @@ class PhpCalculator implements Calculator {
 	 *
 	 * @link https://github.com/moneyphp/money/blob/v3.2.1/src/Calculator/PhpCalculator.php#L54-L64
 	 *
-	 * @param string           $value      Value.
-	 * @param int|float|string $multiplier Multiplier.
+	 * @param Number $number     Value.
+	 * @param Number $multiplier Multiplier.
 	 *
-	 * @return string
+	 * @return Number
 	 */
-	public function multiply( $value, $multiplier ) {
-		$result = floatval( $value ) * floatval( $multiplier );
-
-		return strval( $result );
+	public function multiply( $number, $multiplier ) {
+		return Number::from_mixed( $number->get_value() * $multiplier->get_value() );
 	}
 
 	/**
@@ -80,14 +75,12 @@ class PhpCalculator implements Calculator {
 	 *
 	 * @link https://github.com/moneyphp/money/blob/v3.2.1/src/Calculator/PhpCalculator.php#L66-L76
 	 *
-	 * @param string           $value   Value.
-	 * @param int|float|string $divisor Divisor.
+	 * @param Number $number  Value.
+	 * @param Number $divisor Divisor.
 	 *
-	 * @return string|null
+	 * @return Number
 	 */
-	public function divide( $value, $divisor ) {
-		$result = floatval( $value ) / floatval( $divisor );
-
-		return strval( $result );
+	public function divide( $number, $divisor ) {
+		return Number::from_mixed( $number->get_value() / $divisor->get_value() );
 	}
 }

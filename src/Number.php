@@ -10,6 +10,7 @@
 
 namespace Pronamic\WordPress\Number;
 
+use JsonSerializable;
 use Pronamic\WordPress\Number\Calculator\BcMathCalculator;
 use Pronamic\WordPress\Number\Calculator\PhpCalculator;
 
@@ -20,20 +21,13 @@ use Pronamic\WordPress\Number\Calculator\PhpCalculator;
  * @version 1.0.0
  * @since   1.0.0
  */
-class Number {
+class Number implements JsonSerializable {
 	/**
 	 * Amount value.
 	 *
-	 * @var float
+	 * @var string
 	 */
 	private $value;
-
-	/**
-	 * Currency.
-	 *
-	 * @var Currency
-	 */
-	private $currency;
 
 	/**
 	 * Calculator.
@@ -55,57 +49,21 @@ class Number {
 	/**
 	 * Construct and initialize number object.
 	 *
-	 * @param string|int|float $value    Amount value.
-	 * @param Currency|string  $currency Currency.
+	 * @param string|int|float $value Value.
 	 */
 	public function __construct( $value = 0 ) {
 		$this->set_value( $value );
 	}
 
 	/**
-	 * Get default format.
-	 *
-	 * @return string
-	 */
-	public static function get_default_format() {
-		/* translators: 1: currency symbol, 2: amount value, 3: currency code, note: use non-breaking space! */
-		$format = _x( '%1$s%2$s %3$s', 'money format', 'pronamic-money' );
-		// Note:               ↳ Non-breaking space.
-		$format = apply_filters( 'pronamic_money_default_format', $format );
-
-		return $format;
-	}
-
-	/**
 	 * Format i18n.
 	 *
+	 * @link https://developer.wordpress.org/reference/functions/number_format_i18n/
 	 * @param string|null $format Format.
-	 *
 	 * @return string
 	 */
-	public function format_i18n( $format = null ) {
-		if ( is_null( $format ) ) {
-			$format = self::get_default_format();
-		}
-
-		return number_format_i18n( $this->get_value(), 2 );
-	}
-
-	/**
-	 * Format i18n without trailing zeros.
-	 *
-	 * @param string|null $format Format.
-	 *
-	 * @return string
-	 */
-	public function format_i18n_non_trailing_zeros( $format = null ) {
-		if ( is_null( $format ) ) {
-			$format = self::get_default_format();
-		}
-
-		$format = str_replace( '%2$s', '%2$NTZ', $format );
-
-		return $this->format_i18n( $format );
+	public function format_i18n( $decimals = 0 ) {
+		return \number_format_i18n( $this->get_value(), $decimals );
 	}
 
 	/**
@@ -115,18 +73,14 @@ class Number {
 	 *
 	 * @return string
 	 */
-	public function format( $format = null ) {
-		if ( is_null( $format ) ) {
-			$format = '%2$s';
-		}
-
-		return number_format( $this->get_value(), 2, '.', '' );
+	public function format( $decimals = 0, $decimal_separator = '.', $thousands_separator = ',' ) {
+		return \number_format( $this->get_value(), $decimals, $decimal_separator, $thousands_separator );
 	}
 
 	/**
 	 * Get value.
 	 *
-	 * @return float Amount value.
+	 * @return string Numeric string value.
 	 */
 	public function get_value() {
 		return $this->value;
@@ -138,17 +92,8 @@ class Number {
 	 * @param mixed $value Amount value.
 	 * @return void
 	 */
-	final public function set_value( $value ) {
-		$this->value = floatval( $value );
-	}
-
-	/**
-	 * Create a string representation of this money object.
-	 *
-	 * @return string
-	 */
-	public function __toString() {
-		return $this->format_i18n();
+	public function set_value( $value ) {
+		$this->value = self::parse_mixed( $value );
 	}
 
 	/**
@@ -156,25 +101,12 @@ class Number {
 	 * the sum of this and an other Money object.
 	 *
 	 * @param Number $addend Addend.
-	 *
-	 * @return Money
+	 * @return Number
 	 */
 	public function add( Number $addend ) {
-		$value = $this->get_value();
-
 		$calculator = $this->get_calculator();
 
-		// Use non-locale aware float value.
-		$value  = \sprintf( '%F', $value );
-		$addend = \sprintf( '%F', $addend->get_value() );
-
-		$value = $calculator->add( $value, $addend );
-
-		$result = clone $this;
-
-		$result->set_value( $value );
-
-		return $result;
+		return $calculator->add( $this, $addend );
 	}
 
 	/**
@@ -182,27 +114,13 @@ class Number {
 	 * the difference of this and an other Number object.
 	 *
 	 * @link https://github.com/moneyphp/money/blob/v3.2.1/src/Money.php#L235-L255
-	 *
 	 * @param Number $subtrahend Subtrahend.
-	 *
 	 * @return Number
 	 */
 	public function subtract( Number $subtrahend ) {
-		$value = $this->get_value();
-
 		$calculator = $this->get_calculator();
 
-		// Use non-locale aware float value.
-		$value      = \sprintf( '%F', $value );
-		$subtrahend = \sprintf( '%F', $subtrahend->get_value() );
-
-		$value = $calculator->subtract( $value, $subtrahend );
-
-		$result = clone $this;
-
-		$result->set_value( $value );
-
-		return $result;
+		return $calculator->subtract( $this, $subtrahend );
 	}
 
 	/**
@@ -210,27 +128,13 @@ class Number {
 	 * the multiplied value of this Number object.
 	 *
 	 * @link https://github.com/moneyphp/money/blob/v3.2.1/src/Money.php#L299-L316
-	 *
-	 * @param int|float|string $multiplier Multiplier.
-	 *
+	 * @param Number $multiplier Multiplier.
 	 * @return Number
 	 */
-	public function multiply( $multiplier ) {
-		$value = $this->get_value();
-
+	public function multiply( Number $multiplier ) {
 		$calculator = $this->get_calculator();
 
-		// Use non-locale aware float value.
-		$value      = \sprintf( '%F', $value );
-		$multiplier = \sprintf( '%F', $multiplier );
-
-		$value = $calculator->multiply( $value, $multiplier );
-
-		$result = clone $this;
-
-		$result->set_value( $value );
-
-		return $result;
+		return $calculator->multiply( $this, $multiplier );
 	}
 
 	/**
@@ -238,31 +142,32 @@ class Number {
 	 * the divided value of this Number object.
 	 *
 	 * @link https://github.com/moneyphp/money/blob/v3.2.1/src/Money.php#L318-L341
-	 *
-	 * @param int|float|string $divisor Divisor.
-	 *
+	 * @param Number $divisor Divisor.
 	 * @return Number
 	 */
-	public function divide( $divisor ) {
-		$value = $this->get_value();
-
+	public function divide( Number $divisor ) {
 		$calculator = $this->get_calculator();
 
-		// Use non-locale aware float value.
-		$value   = \sprintf( '%F', $value );
-		$divisor = \sprintf( '%F', $divisor );
+		return $calculator->divide( $this, $divisor );
+	}
 
-		$value = $calculator->divide( $value, $divisor );
+	/**
+	 * JSON serialize.
+	 * 
+	 * @link https://www.php.net/manual/en/jsonserializable.jsonserialize.php
+	 * @return string
+	 */
+	public function jsonSerialize() {
+		return $this->value;
+	}
 
-		if ( null === $value ) {
-			$value = $this->get_value();
-		}
-
-		$result = clone $this;
-
-		$result->set_value( $value );
-
-		return $result;
+	/**
+	 * Create a string representation of this number object.
+	 *
+	 * @return string
+	 */
+	public function __toString() {
+		return $this->get_value();
 	}
 
 	/**
@@ -299,5 +204,156 @@ class Number {
 		}
 
 		return self::$calculator;
+	}
+
+	/**
+	 * Create number from integer;
+	 * 
+	 * @param int $value Value.
+	 */
+	public static function from_int( $value ) {
+		return new self( $value );
+	}
+
+	/**
+	 * Create number from float.
+	 * 
+	 * @param float $value Value.
+	 */
+	public static function from_float( $value ) {
+		return new self( $value );
+	}
+
+	/**
+	 * Create number from string.
+	 * 
+	 * @param string $value Value.
+	 */
+	public static function from_string( $value ) {
+		return new self( $value );
+	}
+
+	/**
+	 * Create number from mixed;
+	 * 
+	 * @param mixed $value Value.
+	 */
+	public static function from_mixed( $value ) {
+		return new self( $value );
+	}
+
+	/**
+	 * Parse int.
+	 * 
+	 * @param int $value Value.
+	 * @return string
+	 */
+	private static function parse_int( $value ) {
+		if ( ! \is_int( $value ) ) {
+			throw new \InvalidArgumentException(
+				\sprintf(
+					'Number::parse_int() function only accepts integers. Input was: %s',
+					$value
+				)
+			);
+		}
+
+		return \strval( $value );
+	}
+
+	/**
+	 * Parse float.
+	 * 
+	 * @link https://www.php.net/manual/en/language.types.float.php
+	 * @param float $value Value.
+	 * @return string
+	 */
+	private static function parse_float( $value ) {
+		if ( ! \is_float( $value ) ) {
+			throw new \InvalidArgumentException(
+				\sprintf(
+					'Number::from_float() function only accepts floats. Input was: %s',
+					$value
+				)
+			);
+		}
+
+		/**
+		 * The size of a float is platform-dependent, although a maximum of 
+		 * approximately 1.8e308 with a precision of roughly 14 decimal digits
+		 * is a common value (the 64 bit IEEE format).
+		 * 
+		 * @link https://www.php.net/manual/en/language.types.float.php
+		 * @link https://www.php.net/manual/en/function.sprintf.php
+		 */
+		return self::normalize( \sprintf( '%.14F', $value ) );
+	}
+
+	/**
+	 * Parse a string value.
+	 * 
+	 * @link https://github.com/moneyphp/money/blob/v4.0.1/src/Number.php#L38-L46
+	 * @link https://www.php.net/manual/en/language.types.numeric-strings.php
+	 */
+	private static function parse_string( $value ) {
+		if ( \is_numeric( $value ) ) {
+			return $value;
+		}
+
+		throw new \InvalidArgumentException(
+			\sprintf(
+				'No numerical value: %s.',
+				$value
+			)
+		);
+	}
+
+	/**
+	 * Parse mixed.
+	 * 
+	 * @param mixed $value Value.
+	 * @return string
+	 */
+	private static function parse_mixed( $value ) {
+		if ( \is_int( $value ) ) {
+			return self::parse_int( $value );
+		}
+
+		if ( \is_float( $value ) ) {
+			return self::parse_float( $value );
+		}
+
+		if ( \is_string( $value ) ) {
+			return self::parse_string( $value );
+		}
+
+		throw new \InvalidArgumentException(
+			\sprintf(
+				'Unsupported type, input was of type: %s.',
+				\gettype( $value )
+			)
+		);
+	}
+
+	/**
+	 * Normalize.
+	 * 
+	 * @param string $value Value.
+	 * @return string
+	 */
+	public static function normalize( $value ) {
+		/**
+		 * If the number value contains a decimal separator
+		 * trim the trailing zeros and optiional the
+		 * decimal separator.
+		 * 
+	 	 * @link https://www.php.net/manual/en/function.bcscale.php#107259
+	 	 */
+		if ( false !== \strpos( $value, '.' ) ) {
+			$value = \rtrim( $value, '0' );
+			$value = \rtrim( $value, '.' );
+		}
+
+		return $value;
 	}
 }
