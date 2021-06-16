@@ -19,3 +19,33 @@ https://stackoverflow.com/a/1471792
 > **Edit** If you're not familiar with the `2.1E-5` syntax, you should know it is shorthand for 2.1×10-5. It is how most programming languages represent numbers in scientific notation.
 
 https://stackoverflow.com/a/1471694
+
+### Leading zeros
+
+In https://github.com/moneyphp/money it is not allowed to use leading zeros:
+
+> Leading zeros are not allowed
+
+_Source:_ https://github.com/moneyphp/money/search?q=leading+zero
+
+This probably has somehting to do with the following user note:
+
+> Be careful with GMP - it considers leading zeros in a number string as meaning the number is in octal, whereas 'bc' doesn't:
+>
+> `gmp_strval("000100", 10) => 64`
+>
+> `bcmul("000100", "1") => 100`
+
+_Source:_ https://www.php.net/manual/en/book.gmp.php#106521
+
+```php
+<?php
+$a = 1234; // decimal number
+$a = 0123; // octal number (equivalent to 83 decimal)
+$a = 0x1A; // hexadecimal number (equivalent to 26 decimal)
+$a = 0b11111111; // binary number (equivalent to 255 decimal)
+$a = 1_234_567; // decimal number (as of PHP 7.4.0)
+?>
+```
+
+_Source:_ https://www.php.net/manual/en/language.types.integer.php
