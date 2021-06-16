@@ -49,3 +49,9 @@ $a = 1_234_567; // decimal number (as of PHP 7.4.0)
 ```
 
 _Source:_ https://www.php.net/manual/en/language.types.integer.php
+
+> A leading zero in a numeric literal means "this is octal". But don't be confused: a leading zero in a string does not. Thus:
+> `$x = 0123;          // 83`
+> `$y = "0123" + 0     // 123`
+
+_Source:_ https://www.php.net/manual/en/language.types.integer.php#111523
