@@ -20,8 +20,6 @@ namespace Pronamic\WordPress\Number;
 class NumberTest extends \WP_UnitTestCase {
 	/**
 	 * Test add.
-	 *
-	 * @since 1.0.0
 	 */
 	public function test_add() {
 		$number_1 = new Number( 99.75 );

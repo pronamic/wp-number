@@ -19,7 +19,7 @@ use Pronamic\WordPress\Number\Calculator\PhpCalculator;
  *
  * @author Remco Tolsma
  * @version 1.0.0
- * @since   1.0.0
+ * @since 1.0.0
  */
 class Number implements JsonSerializable {
 	/**

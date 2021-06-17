@@ -13,9 +13,9 @@ namespace Pronamic\WordPress\Number;
 /**
  * Calculator
  *
- * @author  Remco Tolsma
+ * @author Remco Tolsma
  * @version 1.0.0
- * @since   1.0.0
+ * @since 1.0.0
  */
 interface Calculator {
 	/**
