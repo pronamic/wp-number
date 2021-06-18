@@ -75,4 +75,13 @@ interface Calculator {
 	 * @return Number
 	 */
 	public function divide( Number $value, Number $divisor );
+
+	/**
+	 * Absolute.
+	 *
+	 * @link https://github.com/moneyphp/money/blob/v4.0.1/src/Calculator/BcMathCalculator.php#L91-L99
+	 * @param Number $number Number.
+	 * @return Number
+	 */
+	public function absolute( Number $number );
 }

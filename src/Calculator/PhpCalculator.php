@@ -83,4 +83,15 @@ class PhpCalculator implements Calculator {
 	public function divide( $number, $divisor ) {
 		return Number::from_mixed( $number->get_value() / $divisor->get_value() );
 	}
+
+	/**
+	 * Absolute.
+	 *
+	 * @link https://github.com/moneyphp/money/blob/v3.3.1/src/Calculator/PhpCalculator.php#L94-L104
+	 * @param Number $number Number.
+	 * @return Number
+	 */
+	public function absolute( Number $number ) {
+		return self::number( \ltrim( $number->get_value(), '-' ) );
+	}
 }

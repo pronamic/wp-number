@@ -223,4 +223,32 @@ class NumberTest extends \WP_UnitTestCase {
 			array( '-' ),
 		);
 	}
+
+	/**
+	 * Test PHP.net `abs()` examples.
+	 * 
+	 * @link https://www.php.net/manual/en/function.abs.php
+	 * @dataProvider provider_php_abs_examples
+	 */
+	public function test_php_abs_examples( $value, $expected ) {
+		$number = Number::from_mixed( $value );
+
+		$absolute = $number->absolute();
+
+		$this->assertSame( $expected, $absolute->get_value() );
+	}
+
+	/**
+	 * Provider valid numeric examples.
+	 * 
+	 * @link https://www.php.net/manual/en/language.types.integer.php
+	 * @return array
+	 */
+	public function provider_php_abs_examples() {
+		return array(
+			array( -4.2, '4.2' ),
+			array( 5, '5' ),
+			array( -5, '5' ),
+		);
+	}
 }

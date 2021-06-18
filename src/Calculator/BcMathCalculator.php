@@ -110,4 +110,15 @@ class BcMathCalculator implements Calculator {
 	public function divide( Number $number, Number $divisor ) {
 		return self::number( \bcdiv( $number->get_value(), $divisor->get_value(), $this->scale ) );
 	}
+
+	/**
+	 * Absolute.
+	 *
+	 * @link https://github.com/moneyphp/money/blob/v4.0.1/src/Calculator/BcMathCalculator.php#L91-L99
+	 * @param Number $number Number.
+	 * @return Number
+	 */
+	public function absolute( Number $number ) {
+		return self::number( \ltrim( $number->get_value(), '-' ) );
+	}
 }

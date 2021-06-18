@@ -152,6 +152,19 @@ class Number implements JsonSerializable {
 	}
 
 	/**
+	 * Returns the absolute number.
+	 *
+	 * @link https://github.com/moneyphp/money/blob/v3.2.1/src/Money.php#L318-L341
+	 * @param Number $divisor Divisor.
+	 * @return Number
+	 */
+	public function absolute() {
+		$calculator = $this->get_calculator();
+
+		return $calculator->absolute( $this );
+	}
+
+	/**
 	 * JSON serialize.
 	 * 
 	 * @link https://www.php.net/manual/en/jsonserializable.jsonserialize.php
