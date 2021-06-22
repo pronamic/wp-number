@@ -347,7 +347,7 @@ class Number implements JsonSerializable {
 		 */
 		$old_value = \ini_set( 'serialize_precision', '-1' );
 
-		$result = self::parse_mixed( \wp_json_encode( $value ) );
+		$result = self::parse_mixed( self::normalize( \var_export( $value, true ) ) );
 
 		if ( false !== $old_value ) {
 			\ini_set( 'serialize_precision', $old_value );
