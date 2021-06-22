@@ -9,25 +9,18 @@ env:
 
 jobs:
   coding-standards:
-    name: Coding Standards (PHP ${{ matrix.php-version }})
+    name: Coding Standards
 
     runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
-        php-version:
-          - 7.4
 
     steps:
       - uses: actions/checkout@v2
 
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-version }}
-          extensions: bcmath, intl, mbstring, mysql
-          ini-values: memory_limit=2048M
-          tools: composer, phpcs
+          php-version: '7.4'
+          extensions: bcmath
+          tools: composer
           coverage: none
 
       - name: Composer validation
@@ -45,24 +38,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-
 
-      - name: Require WordPress
-        run: composer require --dev --no-update --no-progress --no-suggest roots/wordpress:${{ env.wp-version }} wp-phpunit/wp-phpunit:${{ env.wp-version }}
-
       - name: Install Composer dependencies
-        run: composer update --no-progress --no-suggest
+        run: composer update --no-progress
 
       - name: List Composer packages
         run: composer show
 
-      - name: PHPLint
-        run: composer run-script phplint
-
       - name: PHP Code Sniffer
         run: composer run-script phpcs
-
-      - name: PHP Mess Detector
-        continue-on-error: true
-        run: composer run-script phpmd
 
   static-code-analysis:
     name: Static Code Analysis (PHP ${{ matrix.php-version }})
