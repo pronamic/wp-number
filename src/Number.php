@@ -345,7 +345,7 @@ class Number implements JsonSerializable {
 		 * @link https://www.php.net/manual/en/ini.core.php#ini.serialize-precision
 		 * @link https://wiki.php.net/rfc/locale_independent_float_to_string
 		 */
-		$result = self::parse_mixed( self::normalize( \var_export( $value, true ) ) );
+		$result = self::parse_mixed( \wp_json_encode( $value ) );
 
 		return $result;
 	}
