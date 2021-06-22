@@ -66,7 +66,7 @@ class PhpCalculator implements Calculator {
 	 *
 	 * @return Number
 	 */
-	public function multiply( $number, $multiplier ) {
+	public function multiply( Number $number, Number $multiplier ) {
 		return Number::from_mixed( $number->get_value() * $multiplier->get_value() );
 	}
 
@@ -80,7 +80,7 @@ class PhpCalculator implements Calculator {
 	 *
 	 * @return Number
 	 */
-	public function divide( $number, $divisor ) {
+	public function divide( Number $number, Number $divisor ) {
 		if ( $divisor->is_zero() ) {
 			throw new \InvalidArgumentException( 'Division by zero' );
 		}
