@@ -92,6 +92,6 @@ class PhpCalculator implements Calculator {
 	 * @return Number
 	 */
 	public function absolute( Number $number ) {
-		return self::number( \ltrim( $number->get_value(), '-' ) );
+		return Number::from_mixed( \ltrim( $number->get_value(), '-' ) );
 	}
 }

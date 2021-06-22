@@ -17,6 +17,7 @@ use Pronamic\WordPress\Number\Calculator\PhpCalculator;
 /**
  * Number
  *
+ * @link https://psalm.dev/docs/annotating_code/type_syntax/scalar_types/#numeric-string
  * @author Remco Tolsma
  * @version 1.0.0
  * @since 1.0.0
@@ -25,6 +26,7 @@ class Number implements JsonSerializable {
 	/**
 	 * Amount value.
 	 *
+	 * @psalm-var numeric-string
 	 * @var string
 	 */
 	private $value;
@@ -39,6 +41,7 @@ class Number implements JsonSerializable {
 	/**
 	 * Calculators.
 	 *
+	 * @psalm-var array<int, class-string<Calculator>>
 	 * @var array<int, string>
 	 */
 	private static $calculators = array(
@@ -49,9 +52,9 @@ class Number implements JsonSerializable {
 	/**
 	 * Construct and initialize number object.
 	 *
-	 * @param string|int|float $value Value.
+	 * @param mixed $value Value.
 	 */
-	public function __construct( $value = 0 ) {
+	public function __construct( $value ) {
 		$this->set_value( $value );
 	}
 
@@ -59,27 +62,38 @@ class Number implements JsonSerializable {
 	 * Format i18n.
 	 *
 	 * @link https://developer.wordpress.org/reference/functions/number_format_i18n/
-	 * @param string|null $format Format.
+	 * @param int $decimals Precision of the number of decimal places.
 	 * @return string
 	 */
 	public function format_i18n( $decimals = 0 ) {
+		/**
+		 * @psalm-suppress InvalidScalarArgument Passing a numeric string instead of a float doesn't seem to cause any problems.
+		 * @phpstan-ignore-next-line
+		 */
 		return \number_format_i18n( $this->get_value(), $decimals );
 	}
 
 	/**
 	 * Format.
 	 *
-	 * @param string|null $format Format.
-	 *
+	 * @param int         $decimals            Precision of the number of decimal places.
+	 * @param string|null $decimal_separator   Sets the separator for the decimal point.
+	 * @param string|null $thousands_separator Sets the thousands separator.
 	 * @return string
 	 */
 	public function format( $decimals = 0, $decimal_separator = '.', $thousands_separator = ',' ) {
+		/**
+		 * @psalm-suppress InvalidScalarArgument Passing a numeric string instead of a float doesn't seem to cause any problems.
+		 * @psalm-suppress PossiblyNullArgument According to the PHP documentation the decimal and thousands separtor can be null.
+		 * @phpstan-ignore-next-line
+		 */
 		return \number_format( $this->get_value(), $decimals, $decimal_separator, $thousands_separator );
 	}
 
 	/**
 	 * Get value.
 	 *
+	 * @psalm-return numeric-string
 	 * @return string Numeric string value.
 	 */
 	public function get_value() {
@@ -92,7 +106,7 @@ class Number implements JsonSerializable {
 	 * @param mixed $value Amount value.
 	 * @return void
 	 */
-	public function set_value( $value ) {
+	public final function set_value( $value ) {
 		$this->value = self::parse_mixed( $value );
 	}
 
@@ -155,7 +169,6 @@ class Number implements JsonSerializable {
 	 * Returns the absolute number.
 	 *
 	 * @link https://github.com/moneyphp/money/blob/v3.2.1/src/Money.php#L318-L341
-	 * @param Number $divisor Divisor.
 	 * @return Number
 	 */
 	public function absolute() {
@@ -177,6 +190,7 @@ class Number implements JsonSerializable {
 	/**
 	 * Create a string representation of this number object.
 	 *
+	 * @psalm-return numeric-string
 	 * @return string
 	 */
 	public function __toString() {
@@ -197,6 +211,9 @@ class Number implements JsonSerializable {
 			if ( $calculator_class::supported() ) {
 				$calculator = new $calculator_class();
 
+				/**
+				 * @psalm-suppress RedundantConditionGivenDocblockType
+				 */
 				if ( $calculator instanceof Calculator ) {
 					return $calculator;
 				}
@@ -223,6 +240,7 @@ class Number implements JsonSerializable {
 	 * Create number from integer;
 	 *
 	 * @param int $value Value.
+	 * @return self
 	 */
 	public static function from_int( $value ) {
 		return new self( $value );
@@ -232,6 +250,7 @@ class Number implements JsonSerializable {
 	 * Create number from float.
 	 *
 	 * @param float $value Value.
+	 * @return self
 	 */
 	public static function from_float( $value ) {
 		return new self( $value );
@@ -241,6 +260,7 @@ class Number implements JsonSerializable {
 	 * Create number from string.
 	 *
 	 * @param string $value Value.
+	 * @return self
 	 */
 	public static function from_string( $value ) {
 		return new self( $value );
@@ -250,6 +270,7 @@ class Number implements JsonSerializable {
 	 * Create number from mixed;
 	 *
 	 * @param mixed $value Value.
+	 * @return self
 	 */
 	public static function from_mixed( $value ) {
 		return new self( $value );
@@ -259,19 +280,23 @@ class Number implements JsonSerializable {
 	 * Parse int.
 	 *
 	 * @param int $value Value.
+	 * @psalm-return numeric-string
 	 * @return string
 	 */
 	private static function parse_int( $value ) {
+		/**
+		 * @psalm-suppress DocblockTypeContradiction Ignore because we support older PHP versions and have not enabled strict types.
+		 */
 		if ( ! \is_int( $value ) ) {
 			throw new \InvalidArgumentException(
 				\sprintf(
 					'Number::parse_int() function only accepts integers. Input was: %s',
-					$value
+					\print_r( $value, true )
 				)
 			);
 		}
 
-		return \strval( $value );
+		return self::parse_string( \strval( $value ) );
 	}
 
 	/**
@@ -279,14 +304,18 @@ class Number implements JsonSerializable {
 	 *
 	 * @link https://www.php.net/manual/en/language.types.float.php
 	 * @param float $value Value.
+	 * @psalm-return numeric-string
 	 * @return string
 	 */
 	private static function parse_float( $value ) {
+		/**
+		 * @psalm-suppress DocblockTypeContradiction Ignore because we support older PHP versions and have not enabled strict types.
+		 */
 		if ( ! \is_float( $value ) ) {
 			throw new \InvalidArgumentException(
 				\sprintf(
 					'Number::from_float() function only accepts floats. Input was: %s',
-					$value
+					\print_r( $value, true )
 				)
 			);
 		}
@@ -299,7 +328,7 @@ class Number implements JsonSerializable {
 		 * @link https://www.php.net/manual/en/language.types.float.php
 		 * @link https://www.php.net/manual/en/function.sprintf.php
 		 */
-		return self::normalize( \sprintf( '%.14F', $value ) );
+		return self::parse_string( self::normalize( \sprintf( '%.14F', $value ) ) );
 	}
 
 	/**
@@ -307,6 +336,9 @@ class Number implements JsonSerializable {
 	 *
 	 * @link https://github.com/moneyphp/money/blob/v4.0.1/src/Number.php#L38-L46
 	 * @link https://www.php.net/manual/en/language.types.numeric-strings.php
+	 * @param string $value Value.
+	 * @psalm-return numeric-string
+	 * @return string
 	 */
 	private static function parse_string( $value ) {
 		if ( \is_numeric( $value ) ) {
@@ -325,6 +357,7 @@ class Number implements JsonSerializable {
 	 * Parse mixed.
 	 *
 	 * @param mixed $value Value.
+	 * @psalm-return numeric-string
 	 * @return string
 	 */
 	private static function parse_mixed( $value ) {

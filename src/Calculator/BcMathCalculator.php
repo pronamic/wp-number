@@ -73,7 +73,7 @@ class BcMathCalculator implements Calculator {
 	 *
 	 * @link https://github.com/moneyphp/money/blob/v3.2.1/src/Calculator/BcMathCalculator.php#L51-L62
 	 *
-	 * @param Number $value      Number.
+	 * @param Number $number     Number.
 	 * @param Number $subtrahend Subtrahend.
 	 *
 	 * @return Number
@@ -108,7 +108,13 @@ class BcMathCalculator implements Calculator {
 	 * @return Number
 	 */
 	public function divide( Number $number, Number $divisor ) {
-		return self::number( \bcdiv( $number->get_value(), $divisor->get_value(), $this->scale ) );
+		$result = \bcdiv( $number->get_value(), $divisor->get_value(), $this->scale );
+
+		if ( null === $result ) {
+			throw new \InvalidArgumentException( 'Cannot compute division with a zero divisor.' );
+		}
+
+		return self::number( $result );
 	}
 
 	/**

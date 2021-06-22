@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<psalm
+	autoloader="tests/bootstrap.php"
+>
+	<projectFiles>
+		<directory name="src" />
+	</projectFiles>
+</psalm>
