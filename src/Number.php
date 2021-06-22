@@ -178,6 +178,18 @@ class Number implements JsonSerializable {
 	}
 
 	/**
+	 * Checks if the value represented by this object is zero.
+	 * 
+	 * @link https://github.com/moneyphp/money/blob/v4.0.1/src/Money.php#L425-L431
+	 * @return bool True if zero, false otherwise.
+	 */
+	public function is_zero() {
+		$calculator = $this->get_calculator();
+
+		return 0 === $calculator->compare( $this, new self( '0' ) );
+	}
+
+	/**
 	 * JSON serialize.
 	 *
 	 * @link https://www.php.net/manual/en/jsonserializable.jsonserialize.php
@@ -243,7 +255,7 @@ class Number implements JsonSerializable {
 	 * @return self
 	 */
 	public static function from_int( $value ) {
-		return new self( $value );
+		return new self( self::parse_int( $value ) );
 	}
 
 	/**
@@ -253,7 +265,7 @@ class Number implements JsonSerializable {
 	 * @return self
 	 */
 	public static function from_float( $value ) {
-		return new self( $value );
+		return new self( self::parse_float( $value ) );
 	}
 
 	/**
@@ -263,7 +275,7 @@ class Number implements JsonSerializable {
 	 * @return self
 	 */
 	public static function from_string( $value ) {
-		return new self( $value );
+		return new self( self::parse_string( $value ) );
 	}
 
 	/**
@@ -273,7 +285,7 @@ class Number implements JsonSerializable {
 	 * @return self
 	 */
 	public static function from_mixed( $value ) {
-		return new self( $value );
+		return new self( self::parse_mixed( $value ) );
 	}
 
 	/**

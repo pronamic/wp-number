@@ -26,6 +26,15 @@ abstract class CalculatorTestCase extends \WP_UnitTestCase {
 	abstract protected function get_calculator();
 
 	/**
+	 * Test supported.
+	 */
+	public function test_supported() {
+		$calculator = $this->get_calculator();
+
+		$this->assertTrue( $calculator->supported() );
+	}
+
+	/**
 	 * Test add.
 	 */
 	public function test_add() {
@@ -83,5 +92,63 @@ abstract class CalculatorTestCase extends \WP_UnitTestCase {
 		$number_3 = $calculator->divide( $number_1, $number_2 );
 
 		$this->assertSame( '25', $number_3->get_value() );
+	}
+
+	/**
+	 * Test division by zero.
+	 * 
+	 * @link https://www.php.net/manual/en/class.divisionbyzeroerror.php
+	 */
+	public function test_division_by_zero() {
+		$calculator = $this->get_calculator();
+
+		$number = new Number( 100 );
+
+		$zero = new Number( 0 );
+
+		$this->expectException( \InvalidArgumentException::class );
+
+		$result = $calculator->divide( $number, $zero );
+	}
+
+	/**
+	 * Test absolute.
+	 */
+	public function test_absolute() {
+		$calculator = $this->get_calculator();
+
+		$number = new Number( -100 );
+
+		$result = $calculator->absolute( $number );
+
+		$this->assertSame( '100', $result->get_value() );
+	}
+
+	/**
+	 * Test compare.
+	 */
+	public function test_compare() {
+		$calculator = $this->get_calculator();
+
+		$number_a = new Number( -100 );
+		$number_b = new Number( '-100' );
+
+		$result = $calculator->compare( $number_a, $number_b );
+
+		$this->assertSame( 0, $result );
+
+		$number_a = new Number( 1 );
+		$number_b = new Number( 2 );
+
+		$result = $calculator->compare( $number_a, $number_b );
+
+		$this->assertSame( -1, $result );
+
+		$number_a = new Number( 2 );
+		$number_b = new Number( 1 );
+
+		$result = $calculator->compare( $number_a, $number_b );
+
+		$this->assertSame( 1, $result );
 	}
 }

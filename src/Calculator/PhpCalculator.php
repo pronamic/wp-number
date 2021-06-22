@@ -81,6 +81,10 @@ class PhpCalculator implements Calculator {
 	 * @return Number
 	 */
 	public function divide( $number, $divisor ) {
+		if ( $divisor->is_zero() ) {
+			throw new \InvalidArgumentException( 'Division by zero' );
+		}
+
 		return Number::from_mixed( $number->get_value() / $divisor->get_value() );
 	}
 
@@ -93,5 +97,29 @@ class PhpCalculator implements Calculator {
 	 */
 	public function absolute( Number $number ) {
 		return Number::from_mixed( \ltrim( $number->get_value(), '-' ) );
+	}
+
+	/**
+	 * Compare.
+	 * 
+	 * @link https://github.com/moneyphp/money/blob/v3.3.1/src/Calculator.php#L20-L28
+	 * @link https://github.com/moneyphp/money/blob/v3.3.1/src/Calculator/PhpCalculator.php#L22-L28
+	 * @param Number $a Number A.
+	 * @param Nubmer %b Number B.
+	 * @return int
+	 */
+	public function compare( Number $a, Number $b ) {
+		$value_a = $a->get_value();
+		$value_b = $b->get_value();
+
+		if ( $value_a < $value_b ) {
+			return -1;
+		}
+
+		if ( $value_a > $value_b ) {
+			return 1;
+		}
+
+		return 0;
 	}
 }

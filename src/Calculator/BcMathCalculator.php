@@ -108,11 +108,11 @@ class BcMathCalculator implements Calculator {
 	 * @return Number
 	 */
 	public function divide( Number $number, Number $divisor ) {
-		$result = \bcdiv( $number->get_value(), $divisor->get_value(), $this->scale );
-
-		if ( null === $result ) {
-			throw new \InvalidArgumentException( 'Cannot compute division with a zero divisor.' );
+		if ( $divisor->is_zero() ) {
+			throw new \InvalidArgumentException( 'Division by zero' );
 		}
+
+		$result = \bcdiv( $number->get_value(), $divisor->get_value(), $this->scale );
 
 		return self::number( $result );
 	}
@@ -126,5 +126,18 @@ class BcMathCalculator implements Calculator {
 	 */
 	public function absolute( Number $number ) {
 		return self::number( \ltrim( $number->get_value(), '-' ) );
+	}
+
+	/**
+	 * Compare.
+	 * 
+	 * @link https://github.com/moneyphp/money/blob/v3.3.1/src/Calculator.php#L20-L28
+	 * @link https://github.com/moneyphp/money/blob/v3.3.1/src/Calculator/BcMathCalculator.php#L35-L41
+	 * @param Number $a Number A.
+	 * @param Nubmer %b Number B.
+	 * @return int
+	 */
+	public function compare( Number $a, Number $b ) {
+		return \bccomp( $a->get_value(), $b->get_value(), $this->scale );
 	}
 }

@@ -32,6 +32,45 @@ class NumberTest extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * Test subtract.
+	 */
+	public function test_subtract() {
+		$number_1 = new Number( 100 );
+
+		$number_2 = new Number( 0.25 );
+
+		$number_3 = $number_1->subtract( $number_2 );
+
+		$this->assertSame( '99.75', $number_3->get_value() );
+	}
+
+	/**
+	 * Test multiply.
+	 */
+	public function test_multiply() {
+		$number_1 = new Number( 100 );
+
+		$number_2 = new Number( 5 );
+
+		$number_3 = $number_1->multiply( $number_2 );
+
+		$this->assertSame( '500', $number_3->get_value() );
+	}
+
+	/**
+	 * Test divide.
+	 */
+	public function test_divide() {
+		$number_1 = new Number( 100 );
+
+		$number_2 = new Number( 5 );
+
+		$number_3 = $number_1->divide( $number_2 );
+
+		$this->assertSame( '20', $number_3->get_value() );
+	}
+
+	/**
 	 * Test trim trailing zeros.
 	 *
 	 * @link https://www.php.net/manual/en/function.bcscale.php#107259
@@ -88,6 +127,26 @@ class NumberTest extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * Test from int.
+	 *
+	 * @link https://github.com/moneyphp/money/blob/v4.0.0/tests/NumberTest.php#L79-L86
+	 */
+	public function test_from_int() {
+		$number = Number::from_int( 123 );
+
+		$this->assertSame( '123', $number->get_value() );
+	}
+
+	/**
+	 * Test from int exception.
+	 */
+	public function test_from_int_exception() {
+		$this->expectException( \InvalidArgumentException::class );
+
+		$number = Number::from_int( '123' );
+	}
+
+	/**
 	 * Test floating point math.
 	 *
 	 * @link https://0.30000000000000004.com/#php
@@ -111,6 +170,15 @@ class NumberTest extends \WP_UnitTestCase {
 		$var_2 = Number::from_float( 123.456789 );
 
 		$this->assertSame( $var_1->get_value(), $var_2->get_value() );
+	}
+
+	/**
+	 * Test from float exception.
+	 */
+	public function test_from_float_exception() {
+		$this->expectException( \InvalidArgumentException::class );
+
+		$number = Number::from_float( '123' );
 	}
 
 	/**
@@ -249,6 +317,120 @@ class NumberTest extends \WP_UnitTestCase {
 			array( -4.2, '4.2' ),
 			array( 5, '5' ),
 			array( -5, '5' ),
+		);
+	}
+
+	/**
+	 * Test format.
+	 */
+	public function test_format() {
+		$number = Number::from_string( '1000000000.00' );
+
+		$this->assertSame( '1.000.000.000,00', $number->format( 2, ',', '.' ) );
+	}
+
+	/**
+	 * Test JSON.
+	 */
+	public function test_json() {
+		$number = Number::from_string( '123456.789' );
+
+		$expected = '"123456.789"';
+
+		$this->assertJsonStringEqualsJsonString( $expected, \wp_json_encode( $number ) );
+	}
+
+	/**
+	 * Test is zero.
+	 */
+	public function test_is_zero() {
+		$number = Number::from_float( 0.00 );
+
+		$this->assertTrue( $number->is_zero() );
+	}
+
+	/**
+	 * Test to string.
+	 */
+	public function test_to_string() {
+		$number = Number::from_float( 123456.789 );
+
+		// $this->assertSame( '123456.789', \strval( $number ) );
+	}
+
+	/**
+	 * Test calculator exception.
+	 */
+	public function test_calculator() {
+		$reflection = new \ReflectionClass( Number::class );
+
+		$calculator_property = $reflection->getProperty( 'calculator' );
+		$calculator_property->setAccessible( true );
+
+		$calculator = $calculator_property->getValue();
+
+		$calculator_property->setValue( null );
+
+		$calculators_property = $reflection->getProperty( 'calculators' );
+		$calculators_property->setAccessible( true );
+
+		$calculators = $calculators_property->getValue();
+
+		$calculators_property->setValue( array() );
+
+		$number_1 = new Number( '1' );
+		$number_2 = new Number( '2' );
+
+		$this->expectException( \RuntimeException::class );
+
+		$number_3 = $number_1->add( $number_2 );
+
+		$calculator_property->setValue( $calculator );
+		$calculators_property->setValue( $calculators );
+	}
+
+
+	/**
+	 * Test format i18n.
+	 *
+	 * @link https://github.com/WordPress/WordPress/blob/4.9.5/wp-includes/l10n.php
+	 *
+	 * @param string $locale   Locale.
+	 * @param int    $decimals Decimals.
+	 * @param float  $value    Money value.
+	 * @param string $expected Expected format.
+	 *
+	 * @dataProvider format_i18n_provider
+	 */
+	public function test_format_i18n( $locale, $decimals, $value, $expected ) {
+		\switch_to_locale( $locale );
+
+		$number = new Number( $value );
+
+		$string = $number->format_i18n( $decimals );
+
+		$this->assertEquals( $locale, \get_locale() );
+		$this->assertSame( $expected, $string );
+	}
+
+	/**
+	 * Format i18n provider.
+	 *
+	 * @return array
+	 */
+	public function format_i18n_provider() {
+		return array(
+			// Dutch.
+			array( 'nl_NL', 2, 49.7512, '49,75' ),
+			array( 'nl_NL', 4, 49.7512, '49,7512' ),
+			array( 'nl_NL', 2, 1234567890.1234, '1.234.567.890,12' ),
+
+			// English.
+			array( 'en_US', 2, 49.7512, '49.75' ),
+			array( 'en_US', 2, 1234567890.1234, '1,234,567,890.12' ),
+
+			// French.
+			array( 'fr_FR', 2, 1234567890.1234, '1 234 567 890,12' ),
 		);
 	}
 }
