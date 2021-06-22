@@ -33,7 +33,7 @@ class NumberTest extends \WP_UnitTestCase {
 
 	/**
 	 * Test trim trailing zeros.
-	 * 
+	 *
 	 * @link https://www.php.net/manual/en/function.bcscale.php#107259
 	 */
 	public function test_trim_trailing_zeros() {
@@ -63,7 +63,7 @@ class NumberTest extends \WP_UnitTestCase {
 
 	/**
 	 * Test PHP integer max.
-	 * 
+	 *
 	 * @link https://www.php.net/manual/en/reserved.constants.php
 	 */
 	public function test_int_max() {
@@ -76,7 +76,7 @@ class NumberTest extends \WP_UnitTestCase {
 
 	/**
 	 * Test PHP integer min.
-	 * 
+	 *
 	 * @link https://www.php.net/manual/en/reserved.constants.php
 	 */
 	public function test_int_min() {
@@ -89,7 +89,7 @@ class NumberTest extends \WP_UnitTestCase {
 
 	/**
 	 * Test floating point math.
-	 * 
+	 *
 	 * @link https://0.30000000000000004.com/#php
 	 */
 	public function test_0_dot_3() {
@@ -103,7 +103,7 @@ class NumberTest extends \WP_UnitTestCase {
 
 	/**
 	 * Test from float.
-	 * 
+	 *
 	 * @link https://github.com/moneyphp/money/blob/v4.0.0/tests/NumberTest.php#L79-L86
 	 */
 	public function test_from_float() {
@@ -115,7 +115,7 @@ class NumberTest extends \WP_UnitTestCase {
 
 	/**
 	 * Test max + max 32 bit.
-	 * 
+	 *
 	 * @link https://github.com/moneyphp/money/blob/v4.0.0/tests/NumberTest.php#L79-L86
 	 */
 	public function test_max_add_32_bit() {
@@ -129,7 +129,7 @@ class NumberTest extends \WP_UnitTestCase {
 
 	/**
 	 * Test max + max 64 bit.
-	 * 
+	 *
 	 * @link https://github.com/moneyphp/money/blob/v4.0.0/tests/NumberTest.php#L79-L86
 	 */
 	public function test_max_add_64_bit() {
@@ -143,7 +143,7 @@ class NumberTest extends \WP_UnitTestCase {
 
 	/**
 	 * Test exponential form e0.
-	 * 
+	 *
 	 * @link https://stackoverflow.com/questions/6607819/php-floating-point-number-shown-in-exponential-form
 	 */
 	public function test_exponential_form_0() {
@@ -154,7 +154,7 @@ class NumberTest extends \WP_UnitTestCase {
 
 	/**
 	 * Test exponential form e18.
-	 * 
+	 *
 	 * @link https://stackoverflow.com/questions/6607819/php-floating-point-number-shown-in-exponential-form
 	 */
 	public function test_exponential_form_18() {
@@ -165,7 +165,7 @@ class NumberTest extends \WP_UnitTestCase {
 
 	/**
 	 * Test PHP.net `is_numeric()` examples.
-	 * 
+	 *
 	 * @link https://www.php.net/manual/en/function.is-numeric.php#refsect1-function.is-numeric-examples
 	 * @dataProvider provider_php_is_numeric_examples
 	 */
@@ -177,27 +177,27 @@ class NumberTest extends \WP_UnitTestCase {
 
 	/**
 	 * Provider valid numeric examples.
-	 * 
+	 *
 	 * @link https://www.php.net/manual/en/language.types.integer.php
 	 * @return array
 	 */
 	public function provider_php_is_numeric_examples() {
 		return array(
-			array( "42", '42' ),
+			array( '42', '42' ),
 			array( 1337, '1337' ),
 			array( 0x539, '1337' ), // hexadecimal number
 			array( 02471, '1337' ), // octal number
 			array( 0b10100111001, '1337' ), // binary number
 			array( 1337e0, '1337' ),
-			array( "02471", '02471' ),
-			array( "1337e0", '1337e0' ),
+			array( '02471', '02471' ),
+			array( '1337e0', '1337e0' ),
 			array( 9.1, '9.1' ),
 		);
 	}
 
 	/**
 	 * Test PHP.net `is_numeric()` examples.
-	 * 
+	 *
 	 * @link https://www.php.net/manual/en/function.is-numeric.php#refsect1-function.is-numeric-examples
 	 * @dataProvider provider_php_not_numeric_examples
 	 */
@@ -209,14 +209,14 @@ class NumberTest extends \WP_UnitTestCase {
 
 	/**
 	 * Provider not numeric examples.
-	 * 
+	 *
 	 * @return array
 	 */
 	public function provider_php_not_numeric_examples() {
 		return array(
-			array( "0x539" ),
-			array( "0b10100111001" ),
-			array( "not numeric" ),
+			array( '0x539' ),
+			array( '0b10100111001' ),
+			array( 'not numeric' ),
 			array( array() ),
 			array( null ),
 			array( '' ),
@@ -226,7 +226,7 @@ class NumberTest extends \WP_UnitTestCase {
 
 	/**
 	 * Test PHP.net `abs()` examples.
-	 * 
+	 *
 	 * @link https://www.php.net/manual/en/function.abs.php
 	 * @dataProvider provider_php_abs_examples
 	 */
@@ -240,7 +240,7 @@ class NumberTest extends \WP_UnitTestCase {
 
 	/**
 	 * Provider valid numeric examples.
-	 * 
+	 *
 	 * @link https://www.php.net/manual/en/language.types.integer.php
 	 * @return array
 	 */

@@ -166,7 +166,7 @@ class Number implements JsonSerializable {
 
 	/**
 	 * JSON serialize.
-	 * 
+	 *
 	 * @link https://www.php.net/manual/en/jsonserializable.jsonserialize.php
 	 * @return string
 	 */
@@ -221,7 +221,7 @@ class Number implements JsonSerializable {
 
 	/**
 	 * Create number from integer;
-	 * 
+	 *
 	 * @param int $value Value.
 	 */
 	public static function from_int( $value ) {
@@ -230,7 +230,7 @@ class Number implements JsonSerializable {
 
 	/**
 	 * Create number from float.
-	 * 
+	 *
 	 * @param float $value Value.
 	 */
 	public static function from_float( $value ) {
@@ -239,7 +239,7 @@ class Number implements JsonSerializable {
 
 	/**
 	 * Create number from string.
-	 * 
+	 *
 	 * @param string $value Value.
 	 */
 	public static function from_string( $value ) {
@@ -248,7 +248,7 @@ class Number implements JsonSerializable {
 
 	/**
 	 * Create number from mixed;
-	 * 
+	 *
 	 * @param mixed $value Value.
 	 */
 	public static function from_mixed( $value ) {
@@ -257,7 +257,7 @@ class Number implements JsonSerializable {
 
 	/**
 	 * Parse int.
-	 * 
+	 *
 	 * @param int $value Value.
 	 * @return string
 	 */
@@ -276,7 +276,7 @@ class Number implements JsonSerializable {
 
 	/**
 	 * Parse float.
-	 * 
+	 *
 	 * @link https://www.php.net/manual/en/language.types.float.php
 	 * @param float $value Value.
 	 * @return string
@@ -292,10 +292,10 @@ class Number implements JsonSerializable {
 		}
 
 		/**
-		 * The size of a float is platform-dependent, although a maximum of 
+		 * The size of a float is platform-dependent, although a maximum of
 		 * approximately 1.8e308 with a precision of roughly 14 decimal digits
 		 * is a common value (the 64 bit IEEE format).
-		 * 
+		 *
 		 * @link https://www.php.net/manual/en/language.types.float.php
 		 * @link https://www.php.net/manual/en/function.sprintf.php
 		 */
@@ -304,7 +304,7 @@ class Number implements JsonSerializable {
 
 	/**
 	 * Parse a string value.
-	 * 
+	 *
 	 * @link https://github.com/moneyphp/money/blob/v4.0.1/src/Number.php#L38-L46
 	 * @link https://www.php.net/manual/en/language.types.numeric-strings.php
 	 */
@@ -323,7 +323,7 @@ class Number implements JsonSerializable {
 
 	/**
 	 * Parse mixed.
-	 * 
+	 *
 	 * @param mixed $value Value.
 	 * @return string
 	 */
@@ -350,7 +350,7 @@ class Number implements JsonSerializable {
 
 	/**
 	 * Normalize.
-	 * 
+	 *
 	 * @param string $value Value.
 	 * @return string
 	 */
@@ -359,9 +359,9 @@ class Number implements JsonSerializable {
 		 * If the number value contains a decimal separator
 		 * trim the trailing zeros and optiional the
 		 * decimal separator.
-		 * 
-	 	 * @link https://www.php.net/manual/en/function.bcscale.php#107259
-	 	 */
+		 *
+		 * @link https://www.php.net/manual/en/function.bcscale.php#107259
+		 */
 		if ( false !== \strpos( $value, '.' ) ) {
 			$value = \rtrim( $value, '0' );
 			$value = \rtrim( $value, '.' );

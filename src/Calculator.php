@@ -62,7 +62,7 @@ interface Calculator {
 	 *
 	 * @return string
 	 */
-	public function multiply( Number $value, Number$multiplier );
+	public function multiply( Number $value, Number $multiplier );
 
 	/**
 	 * Divide amount with divisor.
