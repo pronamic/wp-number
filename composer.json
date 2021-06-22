@@ -3,6 +3,20 @@
 	"description": "WordPress Number library.",
 	"keywords": ["wordpress", "number", "i18n", "float", "int", "double", "calculator"],
 	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "Pronamic",
+			"email": "info@pronamic.eu",
+			"homepage": "https://www.pronamic.eu/",
+			"role": "Company"
+		},
+		{
+			"name": "Remco Tolsma",
+			"email": "info@remcotolsma.nl",
+			"homepage": "https://www.remcotolsma.nl/",
+			"role": "Developer"
+		}
+	],
 	"autoload": {
 		"psr-4": {
 			"Pronamic\\WordPress\\Number\\": "src"
