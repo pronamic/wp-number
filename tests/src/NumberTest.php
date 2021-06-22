@@ -164,12 +164,29 @@ class NumberTest extends \WP_UnitTestCase {
 	 * Test from float.
 	 *
 	 * @link https://github.com/moneyphp/money/blob/v4.0.0/tests/NumberTest.php#L79-L86
+	 * @param float  $value    Float value.
+	 * @param string $expected Expected value.
+	 * @dataProvider data_provider_from_float
 	 */
-	public function test_from_float() {
-		$var_1 = Number::from_string( '123.456789' );
-		$var_2 = Number::from_float( 123.456789 );
+	public function test_from_float( $value, $expected ) {
+		$number = Number::from_float( $value );
 
-		$this->assertSame( $var_1->get_value(), $var_2->get_value() );
+		$this->assertSame( $expected, $number->get_value() );
+	}
+
+	/**
+	 * Data provider from float test.
+	 *
+	 * @return array
+	 */
+	public function data_provider_from_float() {
+		return array(
+			array( 0.0, '0' ),
+			array( 0.12345678, '0.12345678' ),
+			array( 123.456789, '123.456789' ),
+			array( 0.123456789, '0.123456789' ),
+			array( 0.123456789123456789, '0.12345678912346' ),
+		);
 	}
 
 	/**

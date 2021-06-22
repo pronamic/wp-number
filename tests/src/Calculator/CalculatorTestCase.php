@@ -96,7 +96,7 @@ abstract class CalculatorTestCase extends \WP_UnitTestCase {
 
 	/**
 	 * Test division by zero.
-	 * 
+	 *
 	 * @link https://www.php.net/manual/en/class.divisionbyzeroerror.php
 	 */
 	public function test_division_by_zero() {

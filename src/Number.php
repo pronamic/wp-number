@@ -106,7 +106,7 @@ class Number implements JsonSerializable {
 	 * @param mixed $value Amount value.
 	 * @return void
 	 */
-	public final function set_value( $value ) {
+	final public function set_value( $value ) {
 		$this->value = self::parse_mixed( $value );
 	}
 
@@ -179,7 +179,7 @@ class Number implements JsonSerializable {
 
 	/**
 	 * Checks if the value represented by this object is zero.
-	 * 
+	 *
 	 * @link https://github.com/moneyphp/money/blob/v4.0.1/src/Money.php#L425-L431
 	 * @return bool True if zero, false otherwise.
 	 */
