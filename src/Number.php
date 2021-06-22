@@ -303,7 +303,7 @@ class Number implements JsonSerializable {
 			throw new \InvalidArgumentException(
 				\sprintf(
 					'Number::parse_int() function only accepts integers. Input was: %s',
-					\print_r( $value, true )
+					\var_export( $value, true )
 				)
 			);
 		}
@@ -327,7 +327,7 @@ class Number implements JsonSerializable {
 			throw new \InvalidArgumentException(
 				\sprintf(
 					'Number::from_float() function only accepts floats. Input was: %s',
-					\print_r( $value, true )
+					\var_export( $value, true )
 				)
 			);
 		}
