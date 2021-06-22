@@ -6,6 +6,7 @@ env:
   COMPOSER_NO_INTERACTION: 1
   WP_TESTS_DB_PASS: password
   wp-version: '*'
+  phpunit-version: '^6.0'
 
 jobs:
   coding-standards:
@@ -130,9 +131,11 @@ jobs:
           - name: WP 4.8
             php-version: 7.1
             wp-version: 4.8.*
+            phpunit-version: ^6
           - name: WP 4.7
             php-version: 7.1
             wp-version: 4.7.*
+            phpunit-version: ^6
           - name: Multisite
             php-version: 7.4
             WP_MULTISITE: 1
@@ -182,6 +185,9 @@ jobs:
 
       - name: Require WordPress
         run: composer require --dev --no-update --no-progress roots/wordpress:${{ matrix.wp-version || env.wp-version }} wp-phpunit/wp-phpunit:${{ matrix.wp-version || env.wp-version }}
+
+      - name: Require PHPUnit
+        run: composer require --dev --no-update --no-progress phpunit/phpunit:${{ matrix.phpunit-version || env.phpunit-version }}
 
       - name: Install Composer dependencies
         run: composer update --no-progress
