@@ -116,7 +116,7 @@ class BcMathCalculator implements Calculator {
 
 		// @codeCoverageIgnoreStart
 		if ( null === $result ) {
-			throw new \InvalidArgumentException( 'Division by zero' );			
+			throw new \InvalidArgumentException( 'Division by zero' );
 		}
 		// @codeCoverageIgnore
 
