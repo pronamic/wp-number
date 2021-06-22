@@ -347,8 +347,10 @@ class Number implements JsonSerializable {
 		 * @link https://stackoverflow.com/questions/48205572/json-encode-float-precision-in-php7-and-addition-operation
 		 * @link https://bugs.php.net/bug.php?id=75800
 		 */
-		$ini_precision = \ini_set( 'precision', 14 );
-		$ini_serialize_precision = \ini_set( 'serialize_precision', 14 );
+		$precision = '14';
+
+		$ini_precision = \ini_set( 'precision', $precision );
+		$ini_serialize_precision = \ini_set( 'serialize_precision', $precision );
 
 		$result = self::parse_mixed( \wp_json_encode( $value ) );
 
