@@ -81,7 +81,7 @@ jobs:
             ${{ runner.os }}-composer-
 
       - name: Install Composer dependencies
-        run: composer update --no-progress --no-suggest
+        run: composer update --no-progress
 
       - name: PHPStan static code analysis
         run: composer bin phpstan install && composer run-script phpstan
@@ -181,10 +181,10 @@ jobs:
         run: sudo service mysql start
 
       - name: Require WordPress
-        run: composer require --dev --no-update --no-progress --no-suggest roots/wordpress:${{ matrix.wp-version || env.wp-version }} wp-phpunit/wp-phpunit:${{ matrix.wp-version || env.wp-version }}
+        run: composer require --dev --no-update --no-progress roots/wordpress:${{ matrix.wp-version || env.wp-version }} wp-phpunit/wp-phpunit:${{ matrix.wp-version || env.wp-version }}
 
       - name: Install Composer dependencies
-        run: composer update --no-progress --no-suggest
+        run: composer update --no-progress
 
       - name: List Composer packages
         run: composer show
@@ -246,10 +246,10 @@ jobs:
         run: sudo service mysql start
 
       - name: Require WordPress
-        run: composer require --dev --no-update --no-progress --no-suggest roots/wordpress:${{ env.wp-version }} wp-phpunit/wp-phpunit:${{ env.wp-version }}
+        run: composer require --dev --no-update --no-progress roots/wordpress:${{ env.wp-version }} wp-phpunit/wp-phpunit:${{ env.wp-version }}
 
       - name: Install Composer dependencies
-        run: composer update --no-progress --no-suggest
+        run: composer update --no-progress
 
       - name: List Composer packages
         run: composer show
