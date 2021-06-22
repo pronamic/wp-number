@@ -344,8 +344,21 @@ class Number implements JsonSerializable {
 		 * @link https://www.php.net/manual/en/function.sprintf.php
 		 * @link https://www.php.net/manual/en/ini.core.php#ini.serialize-precision
 		 * @link https://wiki.php.net/rfc/locale_independent_float_to_string
+		 * @link https://stackoverflow.com/questions/48205572/json-encode-float-precision-in-php7-and-addition-operation
+		 * @link https://bugs.php.net/bug.php?id=75800
 		 */
+		$ini_precision = \ini_set( 'precision', 14 );
+		$ini_serialize_precision = \ini_set( 'serialize_precision', 14 );
+
 		$result = self::parse_mixed( \wp_json_encode( $value ) );
+
+		if ( false !== $ini_precision ) {
+			\ini_set( 'precision', $ini_precision );
+		}
+
+		if ( false !== $ini_serialize_precision ) {
+			\ini_set( 'serialize_precision', $ini_serialize_precision );
+		}
 
 		return $result;
 	}
