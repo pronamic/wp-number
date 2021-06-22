@@ -3,12 +3,23 @@ name: CI
 on: [push]
 
 jobs:
-  build-test:
-    runs-on: ubuntu-latest
+  runs-on: ${{ matrix.operating-system }}
+  strategy:
+    matrix:
+      operating-system: ['ubuntu-latest', 'windows-latest', 'macos-latest']
+      php-versions: ['5.6', '7.1', '7.2', '7.3', '7.4']
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
 
-    - uses: php-actions/composer@v5
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
 
-    - uses: php-actions/phpunit@v3
+    - name: Compser
+      uses: php-actions/composer@v6
+
+    - name: PHPUnit
+      uses: php-actions/phpunit@v3
