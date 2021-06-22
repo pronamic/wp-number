@@ -83,7 +83,7 @@ interface Calculator {
 	 * @link https://github.com/moneyphp/money/blob/v3.3.1/src/Calculator.php#L20-L28
 	 * @link https://github.com/moneyphp/money/blob/v3.3.1/src/Calculator/BcMathCalculator.php#L35-L41
 	 * @param Number $a Number A.
-	 * @param Nubmer $b Number B.
+	 * @param Number $b Number B.
 	 * @return int
 	 */
 	public function compare( Number $a, Number $b );

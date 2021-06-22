@@ -337,10 +337,23 @@ class Number implements JsonSerializable {
 		 * approximately 1.8e308 with a precision of roughly 14 decimal digits
 		 * is a common value (the 64 bit IEEE format).
 		 *
+		 * We used `\sprintf( '%.14F', $value )` before, but `wp_json_encode`
+		 * was giving better results.
+		 *
 		 * @link https://www.php.net/manual/en/language.types.float.php
 		 * @link https://www.php.net/manual/en/function.sprintf.php
+		 * @link https://www.php.net/manual/en/ini.core.php#ini.serialize-precision
+		 * @link https://wiki.php.net/rfc/locale_independent_float_to_string
 		 */
-		return self::parse_string( self::normalize( \sprintf( '%.14F', $value ) ) );
+		$old_value = \ini_set( 'serialize_precision', '-1' );
+
+		$result = self::parse_mixed( \wp_json_encode( $value ) );
+
+		if ( false !== $old_value ) {
+			\ini_set( 'serialize_precision', $old_value );
+		}
+
+		return $result;
 	}
 
 	/**

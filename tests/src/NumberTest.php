@@ -185,7 +185,10 @@ class NumberTest extends \WP_UnitTestCase {
 			array( 0.12345678, '0.12345678' ),
 			array( 123.456789, '123.456789' ),
 			array( 0.123456789, '0.123456789' ),
-			array( 0.123456789123456789, '0.12345678912346' ),
+			array( 0.123456789123456789, '0.12345678912345678' ),
+			array( 123456.789, '123456.789' ),
+			array( 123456.78, '123456.78' ),
+			array( 12345678901.123456789123456789, '12345678901.123457' ),
 		);
 	}
 
@@ -370,9 +373,9 @@ class NumberTest extends \WP_UnitTestCase {
 	 * Test to string.
 	 */
 	public function test_to_string() {
-		$number = Number::from_float( 123456.789 );
+		$number = Number::from_float( 123456.78 );
 
-		// $this->assertSame( '123456.789', \strval( $number ) );
+		$this->assertSame( '123456.78', \strval( $number ) );
 	}
 
 	/**
