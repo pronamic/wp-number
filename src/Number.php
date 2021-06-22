@@ -345,13 +345,7 @@ class Number implements JsonSerializable {
 		 * @link https://www.php.net/manual/en/ini.core.php#ini.serialize-precision
 		 * @link https://wiki.php.net/rfc/locale_independent_float_to_string
 		 */
-		$old_value = \ini_set( 'serialize_precision', '-1' );
-
 		$result = self::parse_mixed( self::normalize( \var_export( $value, true ) ) );
-
-		if ( false !== $old_value ) {
-			\ini_set( 'serialize_precision', $old_value );
-		}
 
 		return $result;
 	}
