@@ -1,6 +1,8 @@
 {
 	"name": "pronamic/wp-number",
 	"description": "WordPress Number library.",
+	"keywords": ["wordpress", "number", "i18n", "float", "int", "double", "calculator"],
+	"license": "GPL-2.0-or-later",
 	"autoload": {
 		"psr-4": {
 			"Pronamic\\WordPress\\Number\\": "src"
