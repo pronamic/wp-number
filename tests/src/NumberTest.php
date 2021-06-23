@@ -289,6 +289,7 @@ class NumberTest extends \WP_UnitTestCase {
 		 * numeric.
 		 */
 		if ( version_compare( \PHP_VERSION, '7', '<' ) ) {
+			// phpcs:ignore PHPCompatibility.Miscellaneous.ValidIntegers.HexNumericStringFound
 			$data[] = array( '0x539', '0x539' );
 		}
 
@@ -328,6 +329,7 @@ class NumberTest extends \WP_UnitTestCase {
 		 * not numeric.
 		 */
 		if ( version_compare( \PHP_VERSION, '7', '>=' ) ) {
+			// phpcs:ignore PHPCompatibility.Miscellaneous.ValidIntegers.HexNumericStringFound
 			$data[] = array( '0x539' );
 		}
 

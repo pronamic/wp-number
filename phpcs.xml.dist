@@ -17,6 +17,9 @@
 	<exclude-pattern>vendor-bin/*</exclude-pattern>
 	<exclude-pattern>wordpress/*</exclude-pattern>
 
+	<rule ref="PHPCompatibilityWP" />
+	<rule ref="VariableAnalysis" />
+
 	<rule ref="WordPress">
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
 		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
@@ -25,4 +28,7 @@
 	<rule ref="WordPress.PHP.DiscouragedPHPFunctions.runtime_configuration_putenv">
 		<exclude-pattern>/tests/bootstrap.php</exclude-pattern>
 	</rule>
+
+	<rule ref="WordPressVIPMinimum" />
+	<rule ref="WordPress-VIP-Go" />
 </ruleset>
