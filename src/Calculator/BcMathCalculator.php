@@ -104,8 +104,8 @@ class BcMathCalculator implements Calculator {
 	 *
 	 * @param Number $number  Number.
 	 * @param Number $divisor Divisor.
-	 *
 	 * @return Number
+	 * @throws \InvalidArgumentException Division by zero.
 	 */
 	public function divide( Number $number, Number $divisor ) {
 		if ( $divisor->is_zero() ) {

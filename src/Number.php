@@ -67,6 +67,9 @@ class Number implements JsonSerializable {
 	 */
 	public function format_i18n( $decimals = 0 ) {
 		/**
+		 * The WordPress `number_format_i18n` function requires a float but
+		 * passing in a numeric string seems to work too.
+		 *
 		 * @psalm-suppress InvalidScalarArgument Passing a numeric string instead of a float doesn't seem to cause any problems.
 		 * @phpstan-ignore-next-line
 		 */
@@ -83,6 +86,9 @@ class Number implements JsonSerializable {
 	 */
 	public function format( $decimals = 0, $decimal_separator = '.', $thousands_separator = ',' ) {
 		/**
+		 * The PHP `number_format` function requires a float but
+		 * passing in a numeric string seems to work too.
+		 *
 		 * @psalm-suppress InvalidScalarArgument Passing a numeric string instead of a float doesn't seem to cause any problems.
 		 * @psalm-suppress PossiblyNullArgument According to the PHP documentation the decimal and thousands separtor can be null.
 		 * @phpstan-ignore-next-line
@@ -224,6 +230,9 @@ class Number implements JsonSerializable {
 				$calculator = new $calculator_class();
 
 				/**
+				 * This should always be a `Calculator`, but we're checking
+				 * this for now just to be sure.
+				 *
 				 * @psalm-suppress RedundantConditionGivenDocblockType
 				 */
 				if ( $calculator instanceof Calculator ) {
@@ -294,15 +303,19 @@ class Number implements JsonSerializable {
 	 * @param int $value Value.
 	 * @psalm-return numeric-string
 	 * @return string
+	 * @throws \InvalidArgumentException Throws invalid argument exception when no integer is passed.
 	 */
 	private static function parse_int( $value ) {
 		/**
+		 * This should always be a `int`, but we're checking this for now just to be sure.
+		 *
 		 * @psalm-suppress DocblockTypeContradiction Ignore because we support older PHP versions and have not enabled strict types.
 		 */
 		if ( ! \is_int( $value ) ) {
 			throw new \InvalidArgumentException(
 				\sprintf(
 					'Number::parse_int() function only accepts integers. Input was: %s',
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export
 					\var_export( $value, true )
 				)
 			);
@@ -318,15 +331,19 @@ class Number implements JsonSerializable {
 	 * @param float $value Value.
 	 * @psalm-return numeric-string
 	 * @return string
+	 * @throws \InvalidArgumentException Throws invalid argument exception when no float is passed.
 	 */
 	private static function parse_float( $value ) {
 		/**
+		 * This should always be a `float`, but we're checking this for now just to be sure.
+		 *
 		 * @psalm-suppress DocblockTypeContradiction Ignore because we support older PHP versions and have not enabled strict types.
 		 */
 		if ( ! \is_float( $value ) ) {
 			throw new \InvalidArgumentException(
 				\sprintf(
 					'Number::from_float() function only accepts floats. Input was: %s',
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export
 					\var_export( $value, true )
 				)
 			);
@@ -347,18 +364,31 @@ class Number implements JsonSerializable {
 		 * @link https://stackoverflow.com/questions/48205572/json-encode-float-precision-in-php7-and-addition-operation
 		 * @link https://bugs.php.net/bug.php?id=75800
 		 */
-		$precision = '14';
+		$ini_precision           = false;
+		$ini_serialize_precision = false;
 
-		$ini_precision           = \ini_set( 'precision', $precision );
-		$ini_serialize_precision = \ini_set( 'serialize_precision', $precision );
+		/**
+		 * It seems that precision setting was different before PHP 7.1,
+		 * so we're trying to force this precision.
+		 */
+		if ( \version_compare( \PHP_VERSION, '7.1', '<' ) ) {
+			$precision = '14';
+
+			// phpcs:ignore WordPress.PHP.IniSet.Risky
+			$ini_precision = \ini_set( 'precision', $precision );
+			// phpcs:ignore WordPress.PHP.IniSet.Risky
+			$ini_serialize_precision = \ini_set( 'serialize_precision', $precision );
+		}
 
 		$result = self::parse_mixed( \wp_json_encode( $value ) );
 
 		if ( false !== $ini_precision ) {
+			// phpcs:ignore WordPress.PHP.IniSet.Risky
 			\ini_set( 'precision', $ini_precision );
 		}
 
 		if ( false !== $ini_serialize_precision ) {
+			// phpcs:ignore WordPress.PHP.IniSet.Risky
 			\ini_set( 'serialize_precision', $ini_serialize_precision );
 		}
 
@@ -373,6 +403,7 @@ class Number implements JsonSerializable {
 	 * @param string $value Value.
 	 * @psalm-return numeric-string
 	 * @return string
+	 * @throws \InvalidArgumentException Throws invalid argument exception when no numeric value is passed.
 	 */
 	private static function parse_string( $value ) {
 		if ( \is_numeric( $value ) ) {
@@ -393,6 +424,7 @@ class Number implements JsonSerializable {
 	 * @param mixed $value Value.
 	 * @psalm-return numeric-string
 	 * @return string
+	 * @throws \InvalidArgumentException Throws invalid argument exception when an unsupported type is passed.
 	 */
 	private static function parse_mixed( $value ) {
 		if ( \is_int( $value ) ) {

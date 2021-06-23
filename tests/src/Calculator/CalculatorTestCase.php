@@ -21,6 +21,8 @@ use Pronamic\WordPress\Number\Number;
  */
 abstract class CalculatorTestCase extends \WP_UnitTestCase {
 	/**
+	 * Get calculator to use in the test case.
+	 *
 	 * @return Calculator
 	 */
 	abstract protected function get_calculator();

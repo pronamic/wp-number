@@ -256,6 +256,8 @@ class NumberTest extends \WP_UnitTestCase {
 	 *
 	 * @link https://www.php.net/manual/en/function.is-numeric.php#refsect1-function.is-numeric-examples
 	 * @dataProvider provider_php_is_numeric_examples
+	 * @param mixed  $value    Value.
+	 * @param string $expected Expected value.
 	 */
 	public function test_php_is_numeric_examples( $value, $expected ) {
 		$number = Number::from_mixed( $value );
@@ -273,9 +275,9 @@ class NumberTest extends \WP_UnitTestCase {
 		return array(
 			array( '42', '42' ),
 			array( 1337, '1337' ),
-			array( 0x539, '1337' ), // hexadecimal number
-			array( 02471, '1337' ), // octal number
-			array( 0b10100111001, '1337' ), // binary number
+			array( 0x539, '1337' ), // Hexadecimal number.
+			array( 02471, '1337' ), // Octal number.
+			array( 0b10100111001, '1337' ), // Binary number.
 			array( 1337e0, '1337' ),
 			array( '02471', '02471' ),
 			array( '1337e0', '1337e0' ),
@@ -288,6 +290,7 @@ class NumberTest extends \WP_UnitTestCase {
 	 *
 	 * @link https://www.php.net/manual/en/function.is-numeric.php#refsect1-function.is-numeric-examples
 	 * @dataProvider provider_php_not_numeric_examples
+	 * @param mixed $value Value.
 	 */
 	public function test_php_not_numeric_examples( $value ) {
 		$this->expectException( \InvalidArgumentException::class );
@@ -317,6 +320,8 @@ class NumberTest extends \WP_UnitTestCase {
 	 *
 	 * @link https://www.php.net/manual/en/function.abs.php
 	 * @dataProvider provider_php_abs_examples
+	 * @param mixed  $value    Value.
+	 * @param string $expected Expected value.
 	 */
 	public function test_php_abs_examples( $value, $expected ) {
 		$number = Number::from_mixed( $value );
