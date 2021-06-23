@@ -202,6 +202,17 @@ class NumberTest extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * Test from mixed self.
+	 */
+	public function test_from_mixed_self() {
+		$number = new Number( '50' );
+
+		$test = Number::from_mixed( $number );
+
+		$this->assertSame( $number, $test );
+	}
+
+	/**
 	 * Test max + max 32 bit.
 	 *
 	 * @link https://github.com/moneyphp/money/blob/v4.0.0/tests/NumberTest.php#L79-L86

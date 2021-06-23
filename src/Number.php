@@ -294,6 +294,10 @@ class Number implements JsonSerializable {
 	 * @return self
 	 */
 	public static function from_mixed( $value ) {
+		if ( $value instanceof self ) {
+			return $value;
+		}
+
 		return new self( self::parse_mixed( $value ) );
 	}
 
