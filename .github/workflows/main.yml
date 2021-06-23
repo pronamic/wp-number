@@ -261,7 +261,7 @@ jobs:
       - name: PHPUnit test suite
         env:
           WP_TESTS_DB_HOST: 127.0.0.1:${{ job.services.mysql.ports['3306'] }}
-        run: composer run-script coverage-clover
+        run: composer run-script coverage
 
       - name: Coveralls code coverage
         env:
