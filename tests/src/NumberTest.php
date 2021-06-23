@@ -285,7 +285,7 @@ class NumberTest extends \WP_UnitTestCase {
 		);
 
 		/**
-		 * On PHP version before 7 it seems that '0x539' is 
+		 * On PHP version before 7 it seems that '0x539' is
 		 * numeric.
 		 */
 		if ( version_compare( \PHP_VERSION, '7', '<' ) ) {
@@ -324,7 +324,7 @@ class NumberTest extends \WP_UnitTestCase {
 		);
 
 		/**
-		 * On PHP version after 5.6 it seems that '0x539' is 
+		 * On PHP version after 5.6 it seems that '0x539' is
 		 * not numeric.
 		 */
 		if ( version_compare( \PHP_VERSION, '7', '>=' ) ) {
