@@ -289,7 +289,7 @@ class NumberTest extends \WP_UnitTestCase {
 		 * numeric.
 		 */
 		if ( version_compare( \PHP_VERSION, '7', '<' ) ) {
-			$data[] = array( '0x539' );
+			$data[] = array( '0x539', '0x539' );
 		}
 
 		return $data;
