@@ -97,6 +97,9 @@ jobs:
       matrix:
         include:
           # PHP Compatibility and WordPress Versions: https://make.wordpress.org/core/handbook/references/php-compatibility-and-wordpress-versions/
+          - name: WP 5.7
+            php-version: 8.0
+            wp-version: 5.7.*
           - name: WP 5.6
             php-version: 7.4
             wp-version: 5.6.*
