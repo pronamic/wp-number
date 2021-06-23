@@ -272,7 +272,7 @@ class NumberTest extends \WP_UnitTestCase {
 	 * @return array
 	 */
 	public function provider_php_is_numeric_examples() {
-		return array(
+		$data = array(
 			array( '42', '42' ),
 			array( 1337, '1337' ),
 			array( 0x539, '1337' ), // Hexadecimal number.
@@ -283,6 +283,16 @@ class NumberTest extends \WP_UnitTestCase {
 			array( '1337e0', '1337e0' ),
 			array( 9.1, '9.1' ),
 		);
+
+		/**
+		 * On PHP version before 7 it seems that '0x539' is 
+		 * numeric.
+		 */
+		if ( version_compare( \PHP_VERSION, '7', '<' ) ) {
+			$data[] = array( '0x539' );
+		}
+
+		return $data;
 	}
 
 	/**
@@ -304,8 +314,7 @@ class NumberTest extends \WP_UnitTestCase {
 	 * @return array
 	 */
 	public function provider_php_not_numeric_examples() {
-		return array(
-			array( '0x539' ),
+		$data = array(
 			array( '0b10100111001' ),
 			array( 'not numeric' ),
 			array( array() ),
@@ -313,6 +322,16 @@ class NumberTest extends \WP_UnitTestCase {
 			array( '' ),
 			array( '-' ),
 		);
+
+		/**
+		 * On PHP version after 5.6 it seems that '0x539' is 
+		 * not numeric.
+		 */
+		if ( version_compare( \PHP_VERSION, '7', '>=' ) ) {
+			$data[] = array( '0x539' );
+		}
+
+		return $data;
 	}
 
 	/**
