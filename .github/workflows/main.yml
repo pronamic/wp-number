@@ -76,7 +76,7 @@ jobs:
             ${{ runner.os }}-composer-
 
       - name: Install Composer dependencies
-        run: composer update --no-progress
+        run: composer install
 
       - name: Install PHPStan
         run: composer bin phpstan install
@@ -205,15 +205,9 @@ jobs:
         run: composer run-script phpunit
 
   code-coverage:
-    name: Code Coverage (PHP ${{ matrix.php-version }})
+    name: Coverage
 
     runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
-        php-version:
-          - 7.4
 
     services:
       mysql:
@@ -231,7 +225,7 @@ jobs:
 
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-version }}
+          php-version: '7.4'
           extensions: bcmath, intl, mbstring, mysql
           ini-values: memory_limit=2048M
           tools: composer
@@ -267,7 +261,7 @@ jobs:
       - name: PHPUnit test suite
         env:
           WP_TESTS_DB_HOST: 127.0.0.1:${{ job.services.mysql.ports['3306'] }}
-        run: composer run-script phpunit
+        run: composer run-script coverage-clover
 
       - name: Coveralls code coverage
         env:
