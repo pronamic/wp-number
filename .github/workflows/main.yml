@@ -9,8 +9,8 @@ env:
   phpunit-version: '^6.0'
 
 jobs:
-  coding-standards:
-    name: Coding Standards
+  phpcs:
+    name: PHP_CodeSniffer
 
     runs-on: ubuntu-latest
 
@@ -40,7 +40,7 @@ jobs:
             ${{ runner.os }}-composer-
 
       - name: Install Composer dependencies
-        run: composer update --no-progress
+        run: composer install
 
       - name: List Composer packages
         run: composer show
@@ -48,24 +48,18 @@ jobs:
       - name: PHP Code Sniffer
         run: composer run-script phpcs
 
-  static-code-analysis:
-    name: Static Code Analysis (PHP ${{ matrix.php-version }})
+  phpstan:
+    name: PHPStan
 
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        php-version:
-          - 7.4
 
     steps:
       - uses: actions/checkout@v2
 
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-version }}
-          extensions: bcmath, intl, mbstring, mysql
-          ini-values: memory_limit=2048M
+          php-version: '7.4'
+          extensions: bcmath
           tools: composer
           coverage: none
 
@@ -84,8 +78,11 @@ jobs:
       - name: Install Composer dependencies
         run: composer update --no-progress
 
-      - name: PHPStan static code analysis
-        run: composer bin phpstan install && composer run-script phpstan
+      - name: Install PHPStan
+        run: composer bin phpstan install
+
+      - name: PHPStan
+        run: composer run-script phpstan
 
   tests:
     name: Tests — PHP ${{ matrix.php-version }} ${{ matrix.name }}
