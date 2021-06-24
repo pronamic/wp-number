@@ -299,7 +299,7 @@ class NumberTest extends \WP_UnitTestCase {
 		 * On PHP version before 7 it seems that '0x539' is
 		 * numeric.
 		 */
-		if ( version_compare( \PHP_VERSION, '7', '<' ) ) {
+		if ( \version_compare( \PHP_VERSION, '7', '<' ) ) {
 			// phpcs:ignore PHPCompatibility.Miscellaneous.ValidIntegers.HexNumericStringFound
 			$data[] = array( '0x539', '0x539' );
 		}
