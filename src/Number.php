@@ -427,6 +427,10 @@ class Number implements JsonSerializable {
 	 * @throws \InvalidArgumentException Throws invalid argument exception when an unsupported type is passed.
 	 */
 	private static function parse_mixed( $value ) {
+		if ( $value instanceof Number ) {
+			return $value->get_value();
+		}
+
 		if ( \is_int( $value ) ) {
 			return self::parse_int( $value );
 		}
