@@ -48,9 +48,9 @@
 		"php-coveralls/php-coveralls": "^2.4",
 		"phpmd/phpmd": "^2.9",
 		"phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0",
+		"pronamic/wp-coding-standards": "^1.0",
 		"roots/wordpress": "^5.7",
-		"wp-phpunit/wp-phpunit": "^5.6",
-		"pronamic/wp-coding-standards": "dev-main"
+		"wp-phpunit/wp-phpunit": "^5.6"
 	},
 	"scripts": {
 		"coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover build/logs/clover.xml --coverage-text",
