@@ -490,4 +490,30 @@ class NumberTest extends \WP_UnitTestCase {
 			array( 'fr_FR', 2, 1234567890.1234, '1 234 567 890,12' ),
 		);
 	}
+
+	/**
+	 * Test `intval`.
+	 *
+	 * @dataProvider provider_test_to_int
+	 */
+	public function test_intval( $value, $expected ) {
+		$number = Number::from_mixed( $value );
+
+		$this->assertSame( $expected, $number->to_int() );
+	}
+
+	/**
+	 * Provider test to int.
+	 * 
+	 * @return array
+	 */
+	public function provider_test_to_int() {
+		return array(
+			array( '50', 50 ),
+			array( '123.45', 123 ),
+			array( '123.56', 123 ),
+			array( '123.99', 123 ),
+			array( '-10', -10 ),
+		);
+	}
 }
