@@ -206,6 +206,15 @@ class Number implements JsonSerializable {
 	}
 
 	/**
+	 * Create int representation of this number object.
+	 * 
+	 * @return int
+	 */
+	public function to_int() {
+		return (int) $this->value;
+	}
+
+	/**
 	 * Create a string representation of this number object.
 	 *
 	 * @psalm-return numeric-string
