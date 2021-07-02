@@ -1,6 +1,32 @@
-# Pronamic WordPress Number
+<h1 align="center">Pronamic WordPress Number</h3>
 
-WordPress Number library.
+<p align="center">
+	WordPress Number library.
+</p>
+
+[![codecov](https://codecov.io/gh/pronamic/wp-number/branch/main/graph/badge.svg?token=NB3B1FS1CP)](https://codecov.io/gh/pronamic/wp-number)
+
+## Table of contents
+
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Design Principles](#design-principles)
+
+## Getting Started
+
+### Installation
+
+```
+composer require pronamic/wp-number
+```
+
+## Usage
+
+```
+$number = Number::from_int( 123.50 )->add( 0.45 );
+
+echo \esc_html( $number->format_i18n( 2 ) );
+```
 
 ## Design Principles
 
