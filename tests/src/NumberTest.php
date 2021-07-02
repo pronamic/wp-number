@@ -516,4 +516,15 @@ class NumberTest extends \WP_UnitTestCase {
 			array( '-10', -10 ),
 		);
 	}
+
+	/**
+	 * Test number from number.
+	 */
+	public function test_number_from_number() {
+		$number = Number::from_int( 5 );
+
+		$number = new Number( $number );
+
+		$this->assertSame( '5', $number->get_value() );	
+	}
 }

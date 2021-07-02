@@ -377,21 +377,34 @@ class Number implements JsonSerializable {
 		 * @link https://stackoverflow.com/questions/48205572/json-encode-float-precision-in-php7-and-addition-operation
 		 * @link https://bugs.php.net/bug.php?id=75800
 		 */
-		$ini_precision           = false;
-		$ini_serialize_precision = false;
 
 		/**
 		 * It seems that precision setting was different before PHP 7.1,
 		 * so we're trying to force this precision.
 		 */
 		if ( \version_compare( \PHP_VERSION, '7.1', '<' ) ) {
-			$precision = '14';
+			return self::parse_float_with_precision( $value, '14' ); // @codeCoverageIgnore
 
-			// phpcs:ignore WordPress.PHP.IniSet.Risky
-			$ini_precision = \ini_set( 'precision', $precision );
-			// phpcs:ignore WordPress.PHP.IniSet.Risky
-			$ini_serialize_precision = \ini_set( 'serialize_precision', $precision );
 		}
+
+		return self::parse_mixed( \wp_json_encode( $value ) );
+	}
+
+	/**
+	 * Parse float precission.
+	 *
+	 * @codeCoverageIgnore
+	 * @param float  $value     Value.
+	 * @param string $precision Precision.
+	 * @psalm-return numeric-string
+	 * @return string
+	 */
+	private static function parse_float_with_precision( $value, $precision ) {
+		// phpcs:ignore WordPress.PHP.IniSet.Risky
+		$ini_precision = \ini_set( 'precision', $precision );
+
+		// phpcs:ignore WordPress.PHP.IniSet.Risky
+		$ini_serialize_precision = \ini_set( 'serialize_precision', $precision );
 
 		$result = self::parse_mixed( \wp_json_encode( $value ) );
 
