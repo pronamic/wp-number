@@ -23,7 +23,7 @@ composer require pronamic/wp-number
 ## Usage
 
 ```
-$number = Number::from_int( 123.50 )->add( 0.45 );
+$number = Number::from_float( 123.50 )->add( 0.45 );
 
 echo \esc_html( $number->format_i18n( 2 ) );
 ```
