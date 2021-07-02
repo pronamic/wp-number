@@ -263,9 +263,11 @@ jobs:
           WP_TESTS_DB_HOST: 127.0.0.1:${{ job.services.mysql.ports['3306'] }}
         run: composer run-script coverage
 
-      - name: Coveralls code coverage
+      - name: Publish coverage
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
         run: |
           composer run-script coveralls
           bash <(curl -s https://codecov.io/bash)
