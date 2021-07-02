@@ -53,6 +53,13 @@
 		"wp-phpunit/wp-phpunit": "^5.6"
 	},
 	"scripts": {
+		"ci": [
+			"@phplint",
+			"@phpcs",
+			"@coverage",
+			"@phpstan",
+			"@psalm"
+		],
 		"coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover build/logs/clover.xml --coverage-text",
 		"coverage-clover": "XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover build/logs/clover.xml",
 		"coverage-html": "XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html build/coverage-html",

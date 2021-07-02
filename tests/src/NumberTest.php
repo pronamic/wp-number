@@ -495,6 +495,8 @@ class NumberTest extends \WP_UnitTestCase {
 	 * Test `intval`.
 	 *
 	 * @dataProvider provider_test_to_int
+	 * @param mixed $value    Value.
+	 * @param int   $expected Expected.
 	 */
 	public function test_intval( $value, $expected ) {
 		$number = Number::from_mixed( $value );
@@ -525,6 +527,6 @@ class NumberTest extends \WP_UnitTestCase {
 
 		$number = new Number( $number );
 
-		$this->assertSame( '5', $number->get_value() );	
+		$this->assertSame( '5', $number->get_value() ); 
 	}
 }
