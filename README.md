@@ -4,6 +4,10 @@
 	WordPress Number library.
 </p>
 
+[![Latest Stable Version](http://poser.pugx.org/pronamic/wp-number/v)](https://packagist.org/packages/pronamic/wp-number)
+[![Total Downloads](http://poser.pugx.org/pronamic/wp-number/downloads)](https://packagist.org/packages/pronamic/wp-number)
+[![Latest Unstable Version](http://poser.pugx.org/pronamic/wp-number/v/unstable)](https://packagist.org/packages/pronamic/wp-number)
+[![License](http://poser.pugx.org/pronamic/wp-number/license)](https://packagist.org/packages/pronamic/wp-number)
 [![codecov](https://codecov.io/gh/pronamic/wp-number/branch/main/graph/badge.svg?token=NB3B1FS1CP)](https://codecov.io/gh/pronamic/wp-number)
 [![Coverage Status](https://coveralls.io/repos/github/pronamic/wp-number/badge.svg?branch=main)](https://coveralls.io/github/pronamic/wp-number?branch=main)
 
