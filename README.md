@@ -5,6 +5,7 @@
 </p>
 
 [![codecov](https://codecov.io/gh/pronamic/wp-number/branch/main/graph/badge.svg?token=NB3B1FS1CP)](https://codecov.io/gh/pronamic/wp-number)
+[![Coverage Status](https://coveralls.io/repos/github/pronamic/wp-number/badge.svg?branch=main)](https://coveralls.io/github/pronamic/wp-number?branch=main)
 
 ## Table of contents
 
