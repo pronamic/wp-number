@@ -49,8 +49,8 @@
 		"phpmd/phpmd": "^2.9",
 		"phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0",
 		"pronamic/wp-coding-standards": "^1.0",
-		"roots/wordpress": "^5.7",
-		"wp-phpunit/wp-phpunit": "^5.6"
+		"roots/wordpress": "^5.8",
+		"wp-phpunit/wp-phpunit": "^5.8"
 	},
 	"scripts": {
 		"ci": [
