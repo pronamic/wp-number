@@ -86,3 +86,7 @@ _Source:_ https://www.php.net/manual/en/language.types.integer.php
 > `$y = "0123" + 0     // 123`
 
 _Source:_ https://www.php.net/manual/en/language.types.integer.php#111523
+
+## Links
+
+- https://0.30000000000000004.com/
