@@ -537,8 +537,8 @@ class NumberTest extends \WP_UnitTestCase {
 	 * @group ticket23013
 	 */
 	public function test_helpscout_ticket_23013() {
-        $method = new \ReflectionMethod( Number::class, 'parse_float_with_precision');
-        $method->setAccessible( true );
+		$method = new \ReflectionMethod( Number::class, 'parse_float_with_precision');
+		$method->setAccessible( true );
 
 		$value = 29.95;
 
