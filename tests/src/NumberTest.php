@@ -529,4 +529,21 @@ class NumberTest extends \WP_UnitTestCase {
 
 		$this->assertSame( '5', $number->get_value() ); 
 	}
+
+	/**
+	 * Test HelpScout ticket #23013.
+	 * 
+	 * @link https://github.com/pronamic/wp-pronamic-pay/issues/281
+	 * @group ticket23013
+	 */
+	public function test_helpscout_ticket_23013() {
+        $method = new \ReflectionMethod( Number::class, 'parse_float_with_precision');
+        $method->setAccessible( true );
+
+		$value = 29.95;
+
+		$result = $method->invoke( null, $value, 17 );
+
+		$this->assertSame( '29.95', $result );
+	}
 }
