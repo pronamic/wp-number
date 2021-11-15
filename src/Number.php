@@ -399,7 +399,7 @@ class Number implements JsonSerializable {
 	 * @psalm-return numeric-string
 	 * @return string
 	 */
-	private static function parse_float_with_precision( $value, $precision ) {
+	public static function parse_float_with_precision( $value, $precision ) {
 		// phpcs:ignore WordPress.PHP.IniSet.Risky
 		$ini_precision = \ini_set( 'precision', $precision );
 
