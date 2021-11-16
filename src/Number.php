@@ -377,16 +377,6 @@ class Number implements JsonSerializable {
 		 * @link https://stackoverflow.com/questions/48205572/json-encode-float-precision-in-php7-and-addition-operation
 		 * @link https://bugs.php.net/bug.php?id=75800
 		 */
-
-		/**
-		 * It seems that precision setting was different before PHP 7.1,
-		 * so we're trying to force this precision.
-		 */
-		if ( \version_compare( \PHP_VERSION, '7.1', '<' ) ) {
-			return self::parse_float_with_precision( $value, 14 );
-
-		}
-
 		return self::parse_float_with_precision( $value, -1 );
 	}
 
