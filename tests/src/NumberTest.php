@@ -541,6 +541,6 @@ class NumberTest extends \WP_UnitTestCase {
 
 		$result = Number::parse_float_with_precision( $value, 17 );
 
-		$this->assertSame( '29.95', $result );
+		$this->assertSame( '29.949999999999999', $result );
 	}
 }

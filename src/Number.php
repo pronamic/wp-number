@@ -383,11 +383,11 @@ class Number implements JsonSerializable {
 		 * so we're trying to force this precision.
 		 */
 		if ( \version_compare( \PHP_VERSION, '7.1', '<' ) ) {
-			return self::parse_float_with_precision( $value, '14' ); // @codeCoverageIgnore
+			return self::parse_float_with_precision( $value, 14 );
 
 		}
 
-		return self::parse_mixed( \wp_json_encode( $value ) );
+		return self::parse_float_with_precision( $value, -1 );
 	}
 
 	/**
@@ -395,23 +395,15 @@ class Number implements JsonSerializable {
 	 *
 	 * @codeCoverageIgnore
 	 * @param float  $value     Value.
-	 * @param string $precision Precision.
+	 * @param int    $precision Precision.
 	 * @psalm-return numeric-string
 	 * @return string
 	 */
 	public static function parse_float_with_precision( $value, $precision ) {
 		// phpcs:ignore WordPress.PHP.IniSet.Risky
-		$ini_precision = \ini_set( 'precision', $precision );
-
-		// phpcs:ignore WordPress.PHP.IniSet.Risky
-		$ini_serialize_precision = \ini_set( 'serialize_precision', $precision );
+		$ini_serialize_precision = \ini_set( 'serialize_precision', (string) $precision );
 
 		$result = self::parse_mixed( \wp_json_encode( $value ) );
-
-		if ( false !== $ini_precision ) {
-			// phpcs:ignore WordPress.PHP.IniSet.Risky
-			\ini_set( 'precision', $ini_precision );
-		}
 
 		if ( false !== $ini_serialize_precision ) {
 			// phpcs:ignore WordPress.PHP.IniSet.Risky
