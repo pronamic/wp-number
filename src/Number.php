@@ -400,14 +400,25 @@ class Number implements JsonSerializable {
 	 * @return string
 	 */
 	public static function parse_float_with_precision( $value, $precision ) {
+		$option = 'serialize_precision';
+
+		/**
+		 * The `serialize_precision` option was introduced in PHP 7.1.
+		 * 
+		 * @link https://wiki.php.net/rfc/precise_float_value
+		 */
+		if ( \version_compare( \PHP_VERSION, '7.1', '<' ) ) {
+			$option = 'precision';
+		}
+
 		// phpcs:ignore WordPress.PHP.IniSet.Risky
-		$ini_serialize_precision = \ini_set( 'serialize_precision', (string) $precision );
+		$ini_serialize_precision = \ini_set( $option, (string) $precision );
 
 		$result = self::parse_mixed( \wp_json_encode( $value ) );
 
 		if ( false !== $ini_serialize_precision ) {
 			// phpcs:ignore WordPress.PHP.IniSet.Risky
-			\ini_set( 'serialize_precision', $ini_serialize_precision );
+			\ini_set( $option, $ini_serialize_precision );
 		}
 
 		return $result;
