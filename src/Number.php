@@ -394,8 +394,8 @@ class Number implements JsonSerializable {
 	 * Parse float precission.
 	 *
 	 * @codeCoverageIgnore
-	 * @param float  $value     Value.
-	 * @param int    $precision Precision.
+	 * @param float $value     Value.
+	 * @param int   $precision Precision.
 	 * @psalm-return numeric-string
 	 * @return string
 	 */
