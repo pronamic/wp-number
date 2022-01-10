@@ -3,7 +3,7 @@
  * Number
  *
  * @author    Pronamic <info@pronamic.eu>
- * @copyright 2005-2021 Pronamic
+ * @copyright 2005-2022 Pronamic
  * @license   GPL-3.0-or-later
  * @package   Pronamic\WordPress\Number
  */
@@ -377,45 +377,38 @@ class Number implements JsonSerializable {
 		 * @link https://stackoverflow.com/questions/48205572/json-encode-float-precision-in-php7-and-addition-operation
 		 * @link https://bugs.php.net/bug.php?id=75800
 		 */
-
-		/**
-		 * It seems that precision setting was different before PHP 7.1,
-		 * so we're trying to force this precision.
-		 */
-		if ( \version_compare( \PHP_VERSION, '7.1', '<' ) ) {
-			return self::parse_float_with_precision( $value, '14' ); // @codeCoverageIgnore
-
-		}
-
-		return self::parse_mixed( \wp_json_encode( $value ) );
+		return self::parse_float_with_precision( $value, -1 );
 	}
 
 	/**
 	 * Parse float precission.
 	 *
 	 * @codeCoverageIgnore
-	 * @param float  $value     Value.
-	 * @param string $precision Precision.
+	 * @param float $value     Value.
+	 * @param int   $precision Precision.
 	 * @psalm-return numeric-string
 	 * @return string
 	 */
-	private static function parse_float_with_precision( $value, $precision ) {
-		// phpcs:ignore WordPress.PHP.IniSet.Risky
-		$ini_precision = \ini_set( 'precision', $precision );
+	public static function parse_float_with_precision( $value, $precision ) {
+		$option = 'serialize_precision';
+
+		/**
+		 * The `serialize_precision` option was introduced in PHP 7.1.
+		 * 
+		 * @link https://wiki.php.net/rfc/precise_float_value
+		 */
+		if ( \version_compare( \PHP_VERSION, '7.1', '<' ) ) {
+			$option = 'precision';
+		}
 
 		// phpcs:ignore WordPress.PHP.IniSet.Risky
-		$ini_serialize_precision = \ini_set( 'serialize_precision', $precision );
+		$ini_serialize_precision = \ini_set( $option, (string) $precision );
 
 		$result = self::parse_mixed( \wp_json_encode( $value ) );
 
-		if ( false !== $ini_precision ) {
-			// phpcs:ignore WordPress.PHP.IniSet.Risky
-			\ini_set( 'precision', $ini_precision );
-		}
-
 		if ( false !== $ini_serialize_precision ) {
 			// phpcs:ignore WordPress.PHP.IniSet.Risky
-			\ini_set( 'serialize_precision', $ini_serialize_precision );
+			\ini_set( $option, $ini_serialize_precision );
 		}
 
 		return $result;

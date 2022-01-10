@@ -3,7 +3,7 @@
  * Number Test
  *
  * @author    Pronamic <info@pronamic.eu>
- * @copyright 2005-2021 Pronamic
+ * @copyright 2005-2022 Pronamic
  * @license   GPL-3.0-or-later
  * @package   Pronamic\WordPress\Money
  */
@@ -528,5 +528,19 @@ class NumberTest extends \WP_UnitTestCase {
 		$number = new Number( $number );
 
 		$this->assertSame( '5', $number->get_value() ); 
+	}
+
+	/**
+	 * Test HelpScout ticket #23013.
+	 * 
+	 * @link https://github.com/pronamic/wp-pronamic-pay/issues/281
+	 * @group ticket23013
+	 */
+	public function test_helpscout_ticket_23013() {
+		$value = 29.95;
+
+		$result = Number::parse_float_with_precision( $value, 17 );
+
+		$this->assertSame( '29.949999999999999', $result );
 	}
 }
