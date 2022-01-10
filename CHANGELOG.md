@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2022-01-10
+### Changed
+- Improved precision support [pronamic/wp-pronamic-pay#281](https://github.com/pronamic/wp-pronamic-pay/issues/281).
+
 ## [1.0.1] - 2021-09-30
 - Added number parser.
 
@@ -13,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - First release.
 
-[Unreleased]: https://github.com/pronamic/wp-number/compare/1.0.1...HEAD
+[Unreleased]: https://github.com/pronamic/wp-number/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/pronamic/wp-number/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/pronamic/wp-number/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/pronamic/wp-number/releases/tag/1.0.0
