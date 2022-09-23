@@ -180,16 +180,16 @@ class NumberTest extends \WP_UnitTestCase {
 	 * @return array
 	 */
 	public function data_provider_from_float() {
-		return array(
-			array( 0.0, '0' ),
-			array( 0.12345678, '0.12345678' ),
-			array( 123.456789, '123.456789' ),
-			array( 0.123456789, '0.123456789' ),
-			array( 0.123456789123456789, \version_compare( \PHP_VERSION, '7.1', '<' ) ? '0.12345678912346' : '0.12345678912345678' ),
-			array( 123456.789, '123456.789' ),
-			array( 123456.78, '123456.78' ),
-			array( 12345678901.123456789123456789, \version_compare( \PHP_VERSION, '7.1', '<' ) ? '12345678901.123' : '12345678901.123457' ),
-		);
+		return [
+			[ 0.0, '0' ],
+			[ 0.12345678, '0.12345678' ],
+			[ 123.456789, '123.456789' ],
+			[ 0.123456789, '0.123456789' ],
+			[ 0.123456789123456789, \version_compare( \PHP_VERSION, '7.1', '<' ) ? '0.12345678912346' : '0.12345678912345678' ],
+			[ 123456.789, '123456.789' ],
+			[ 123456.78, '123456.78' ],
+			[ 12345678901.123456789123456789, \version_compare( \PHP_VERSION, '7.1', '<' ) ? '12345678901.123' : '12345678901.123457' ],
+		];
 	}
 
 	/**
@@ -283,17 +283,17 @@ class NumberTest extends \WP_UnitTestCase {
 	 * @return array
 	 */
 	public function provider_php_is_numeric_examples() {
-		$data = array(
-			array( '42', '42' ),
-			array( 1337, '1337' ),
-			array( 0x539, '1337' ), // Hexadecimal number.
-			array( 02471, '1337' ), // Octal number.
-			array( 0b10100111001, '1337' ), // Binary number.
-			array( 1337e0, '1337' ),
-			array( '02471', '02471' ),
-			array( '1337e0', '1337e0' ),
-			array( 9.1, '9.1' ),
-		);
+		$data = [
+			[ '42', '42' ],
+			[ 1337, '1337' ],
+			[ 0x539, '1337' ], // Hexadecimal number.
+			[ 02471, '1337' ], // Octal number.
+			[ 0b10100111001, '1337' ], // Binary number.
+			[ 1337e0, '1337' ],
+			[ '02471', '02471' ],
+			[ '1337e0', '1337e0' ],
+			[ 9.1, '9.1' ],
+		];
 
 		/**
 		 * On PHP version before 7 it seems that '0x539' is
@@ -301,7 +301,7 @@ class NumberTest extends \WP_UnitTestCase {
 		 */
 		if ( \version_compare( \PHP_VERSION, '7', '<' ) ) {
 			// phpcs:ignore PHPCompatibility.Miscellaneous.ValidIntegers.HexNumericStringFound
-			$data[] = array( '0x539', '0x539' );
+			$data[] = [ '0x539', '0x539' ];
 		}
 
 		return $data;
@@ -326,14 +326,14 @@ class NumberTest extends \WP_UnitTestCase {
 	 * @return array
 	 */
 	public function provider_php_not_numeric_examples() {
-		$data = array(
-			array( '0b10100111001' ),
-			array( 'not numeric' ),
-			array( array() ),
-			array( null ),
-			array( '' ),
-			array( '-' ),
-		);
+		$data = [
+			[ '0b10100111001' ],
+			[ 'not numeric' ],
+			[ [] ],
+			[ null ],
+			[ '' ],
+			[ '-' ],
+		];
 
 		/**
 		 * On PHP version after 5.6 it seems that '0x539' is
@@ -341,7 +341,7 @@ class NumberTest extends \WP_UnitTestCase {
 		 */
 		if ( version_compare( \PHP_VERSION, '7', '>=' ) ) {
 			// phpcs:ignore PHPCompatibility.Miscellaneous.ValidIntegers.HexNumericStringFound
-			$data[] = array( '0x539' );
+			$data[] = [ '0x539' ];
 		}
 
 		return $data;
@@ -370,11 +370,11 @@ class NumberTest extends \WP_UnitTestCase {
 	 * @return array
 	 */
 	public function provider_php_abs_examples() {
-		return array(
-			array( -4.2, '4.2' ),
-			array( 5, '5' ),
-			array( -5, '5' ),
-		);
+		return [
+			[ -4.2, '4.2' ],
+			[ 5, '5' ],
+			[ -5, '5' ],
+		];
 	}
 
 	/**
@@ -433,7 +433,7 @@ class NumberTest extends \WP_UnitTestCase {
 
 		$calculators = $calculators_property->getValue();
 
-		$calculators_property->setValue( array() );
+		$calculators_property->setValue( [] );
 
 		$number_1 = new Number( '1' );
 		$number_2 = new Number( '2' );
@@ -476,19 +476,19 @@ class NumberTest extends \WP_UnitTestCase {
 	 * @return array
 	 */
 	public function format_i18n_provider() {
-		return array(
+		return [
 			// Dutch.
-			array( 'nl_NL', 2, 49.7512, '49,75' ),
-			array( 'nl_NL', 4, 49.7512, '49,7512' ),
-			array( 'nl_NL', 2, 1234567890.1234, '1.234.567.890,12' ),
+			[ 'nl_NL', 2, 49.7512, '49,75' ],
+			[ 'nl_NL', 4, 49.7512, '49,7512' ],
+			[ 'nl_NL', 2, 1234567890.1234, '1.234.567.890,12' ],
 
 			// English.
-			array( 'en_US', 2, 49.7512, '49.75' ),
-			array( 'en_US', 2, 1234567890.1234, '1,234,567,890.12' ),
+			[ 'en_US', 2, 49.7512, '49.75' ],
+			[ 'en_US', 2, 1234567890.1234, '1,234,567,890.12' ],
 
 			// French.
-			array( 'fr_FR', 2, 1234567890.1234, '1 234 567 890,12' ),
-		);
+			[ 'fr_FR', 2, 1234567890.1234, '1 234 567 890,12' ],
+		];
 	}
 
 	/**
@@ -510,13 +510,13 @@ class NumberTest extends \WP_UnitTestCase {
 	 * @return array
 	 */
 	public function provider_test_to_int() {
-		return array(
-			array( '50', 50 ),
-			array( '123.45', 123 ),
-			array( '123.56', 123 ),
-			array( '123.99', 123 ),
-			array( '-10', -10 ),
-		);
+		return [
+			[ '50', 50 ],
+			[ '123.45', 123 ],
+			[ '123.56', 123 ],
+			[ '123.99', 123 ],
+			[ '-10', -10 ],
+		];
 	}
 
 	/**

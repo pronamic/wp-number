@@ -44,10 +44,10 @@ class Number implements JsonSerializable {
 	 * @psalm-var array<int, class-string<Calculator>>
 	 * @var array<int, string>
 	 */
-	private static $calculators = array(
+	private static $calculators = [
 		BcMathCalculator::class,
 		PhpCalculator::class,
-	);
+	];
 
 	/**
 	 * Construct and initialize number object.
