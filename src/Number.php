@@ -201,7 +201,7 @@ class Number implements JsonSerializable {
 	 * @link https://www.php.net/manual/en/jsonserializable.jsonserialize.php
 	 * @return string
 	 */
-	public function jsonSerialize() {
+	public function jsonSerialize(): string {
 		return $this->value;
 	}
 
