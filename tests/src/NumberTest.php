@@ -506,7 +506,7 @@ class NumberTest extends \WP_UnitTestCase {
 
 	/**
 	 * Provider test to int.
-	 * 
+	 *
 	 * @return array
 	 */
 	public function provider_test_to_int() {
@@ -527,12 +527,12 @@ class NumberTest extends \WP_UnitTestCase {
 
 		$number = new Number( $number );
 
-		$this->assertSame( '5', $number->get_value() ); 
+		$this->assertSame( '5', $number->get_value() );
 	}
 
 	/**
 	 * Test HelpScout ticket #23013.
-	 * 
+	 *
 	 * @link https://github.com/pronamic/wp-pronamic-pay/issues/281
 	 * @group ticket23013
 	 */

@@ -207,7 +207,7 @@ class Number implements JsonSerializable {
 
 	/**
 	 * Create int representation of this number object.
-	 * 
+	 *
 	 * @return int
 	 */
 	public function to_int() {
@@ -394,7 +394,7 @@ class Number implements JsonSerializable {
 
 		/**
 		 * The `serialize_precision` option was introduced in PHP 7.1.
-		 * 
+		 *
 		 * @link https://wiki.php.net/rfc/precise_float_value
 		 */
 		if ( \version_compare( \PHP_VERSION, '7.1', '<' ) ) {
