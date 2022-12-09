@@ -300,7 +300,8 @@ class NumberTest extends \WP_UnitTestCase {
 		 * numeric.
 		 */
 		if ( \version_compare( \PHP_VERSION, '7', '<' ) ) {
-			// phpcs:ignore PHPCompatibility.Miscellaneous.ValidIntegers.HexNumericStringFound
+			// phpcs:ignore PHPCompatibility.Miscellaneous.ValidIntegers.HexNumericStringFound -- This test is specific for PHP < 7.
+			// phpcs:ignore PHPCompatibility.Numbers.RemovedHexadecimalNumericStrings.Found -- This test is specific for PHP < 7.
 			$data[] = [ '0x539', '0x539' ];
 		}
 
@@ -340,7 +341,8 @@ class NumberTest extends \WP_UnitTestCase {
 		 * not numeric.
 		 */
 		if ( version_compare( \PHP_VERSION, '7', '>=' ) ) {
-			// phpcs:ignore PHPCompatibility.Miscellaneous.ValidIntegers.HexNumericStringFound
+			// phpcs:ignore PHPCompatibility.Miscellaneous.ValidIntegers.HexNumericStringFound -- This test is specific for PHP >= 7.
+			// phpcs:ignore PHPCompatibility.Numbers.RemovedHexadecimalNumericStrings.Found -- This test is specific for PHP >= 7.
 			$data[] = [ '0x539' ];
 		}
 
