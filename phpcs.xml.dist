@@ -5,7 +5,9 @@
 
 	<exclude-pattern>tests/wp-config.php</exclude-pattern>
 
-	<rule ref="PronamicWP" />
+	<rule ref="PronamicWP">
+		<exclude name="PHPCompatibility.Miscellaneous.ValidIntegers.HexNumericStringFound" />
+    </rule>
 
 	<rule ref="WordPress.PHP.DiscouragedPHPFunctions.runtime_configuration_putenv">
 		<exclude-pattern>/tests/bootstrap.php</exclude-pattern>
