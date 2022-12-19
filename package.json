@@ -1,0 +1,19 @@
+{
+	"name": "@pronamic/wp-number",
+	"version": "1.1.1",
+	"description": "WordPress Number library.",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/pronamic/wp-number.git"
+	},
+	"keywords": [
+		"pronamic",
+		"wordpress",
+		"number"
+	],
+	"license": "GPL-3.0-or-later",
+	"bugs": {
+		"url": "https://github.com/pronamic/wp-number/issues"
+	},
+	"homepage": "https://github.com/pronamic/wp-number#readme"
+}
