@@ -196,6 +196,16 @@ class Number implements JsonSerializable {
 	}
 
 	/**
+	 * Negative.
+	 *
+	 * @link https://github.com/pronamic/wp-number/issues/1
+	 * @return Number
+	 */
+	public function negative() {
+		return self::from_int( 0 )->subtract( $this );
+	}
+
+	/**
 	 * JSON serialize.
 	 *
 	 * @link https://www.php.net/manual/en/jsonserializable.jsonserialize.php
