@@ -202,7 +202,7 @@ class Number implements JsonSerializable {
 	 * @return Number
 	 */
 	public function negative() {
-		return Number::from_int( 0 )->subtract( $this );
+		return self::from_int( 0 )->subtract( $this );
 	}
 
 	/**
