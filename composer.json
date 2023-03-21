@@ -3,6 +3,7 @@
 	"description": "WordPress Number library.",
 	"keywords": ["wordpress", "number", "i18n", "float", "int", "double", "calculator"],
 	"license": "GPL-2.0-or-later",
+	"type": "wordpress-plugin",
 	"authors": [
 		{
 			"name": "Pronamic",
