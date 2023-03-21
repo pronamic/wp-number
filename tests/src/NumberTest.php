@@ -10,6 +10,8 @@
 
 namespace Pronamic\WordPress\Number;
 
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
+
 /**
  * Number Test
  *
@@ -17,7 +19,7 @@ namespace Pronamic\WordPress\Number;
  * @version 1.0.0
  * @since 1.0.0
  */
-class NumberTest extends \WP_UnitTestCase {
+class NumberTest extends TestCase {
 	/**
 	 * Test add.
 	 */
