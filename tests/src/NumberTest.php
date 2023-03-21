@@ -418,6 +418,20 @@ class NumberTest extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * Test negative.
+	 * 
+	 * @link https://github.com/pronamic/wp-number/issues/1
+	 */
+	public function test_negative() {
+		$number = new Number( 29.95 );
+
+		$negative = $number->negative();
+
+		$this->assertSame( '29.95', \strval( $number ) );
+		$this->assertSame( '-29.95', \strval( $negative ) );
+	}
+
+	/**
 	 * Test calculator exception.
 	 */
 	public function test_calculator() {
@@ -447,7 +461,6 @@ class NumberTest extends \WP_UnitTestCase {
 		$calculator_property->setValue( $calculator );
 		$calculators_property->setValue( $calculators );
 	}
-
 
 	/**
 	 * Test format i18n.
