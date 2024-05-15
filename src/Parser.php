@@ -22,11 +22,11 @@ class Parser {
 	 * Parse.
 	 *
 	 * @link https://github.com/wp-pay/core/blob/2.0.2/src/Core/Util.php#L128-L176
-	 * @param string $string String to parse as money.
+	 * @param string $value String to parse as money.
 	 * @return Number
 	 * @throws \Exception Throws exception when parsing string fails.
 	 */
-	public function parse( $string ) {
+	public function parse( $value ) {
 		global $wp_locale;
 
 		$decimal_sep = $wp_locale->number_format['decimal_point'];
@@ -37,7 +37,7 @@ class Parser {
 
 		// Check.
 		foreach ( [ - 3, - 2 ] as $i ) {
-			$test = substr( $string, $i, 1 );
+			$test = substr( $value, $i, 1 );
 
 			if ( in_array( $test, $separators, true ) ) {
 				$decimal_sep = $test;
@@ -50,21 +50,21 @@ class Parser {
 		$position = false;
 
 		if ( is_string( $decimal_sep ) ) {
-			$position = strrpos( $string, $decimal_sep );
+			$position = strrpos( $value, $decimal_sep );
 		}
 
 		// Check decimal position on -4th position at end of string of negative amount (e.g. `2.500,75-`).
-		if ( false === $position && '-' === \substr( $string, -1, 1 ) ) {
-			$test = substr( $string, -4, 1 );
+		if ( false === $position && '-' === \substr( $value, -1, 1 ) ) {
+			$test = substr( $value, -4, 1 );
 
 			if ( is_string( $test ) && in_array( $test, $separators, true ) ) {
-				$position = strrpos( $string, $test );
+				$position = strrpos( $value, $test );
 			}
 		}
 
 		if ( false !== $position ) {
-			$full = substr( $string, 0, $position );
-			$half = substr( $string, $position + 1 );
+			$full = substr( $value, 0, $position );
+			$half = substr( $value, $position + 1 );
 
 			/*
 			 * Consider `-` after decimal separator as alternative notation for 'no minor units' (e.g. `€ 5,-`).
@@ -89,18 +89,18 @@ class Parser {
 				$half = \substr( (string) $half, 0, -1 );
 			}
 
-			$string = $full . '.' . $half;
+			$value = $full . '.' . $half;
 		} else {
 			// Make amount negative if full string ends with minus sign.
-			if ( '-' === \substr( $string, -1, 1 ) ) {
-				$string = sprintf( '-%s', \substr( $string, 0, -1 ) );
+			if ( '-' === \substr( $value, -1, 1 ) ) {
+				$value = sprintf( '-%s', \substr( $value, 0, -1 ) );
 			}
 
-			$string = filter_var( $string, FILTER_SANITIZE_NUMBER_INT );
+			$value = filter_var( $value, FILTER_SANITIZE_NUMBER_INT );
 		}
 
 		// Filter.
-		$value = filter_var( $string, FILTER_VALIDATE_FLOAT );
+		$value = filter_var( $value, FILTER_VALIDATE_FLOAT );
 
 		if ( false === $value ) {
 			throw new \Exception( 'Could not parse value to number object.' );
