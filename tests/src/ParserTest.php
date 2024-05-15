@@ -47,20 +47,20 @@ class ParserTest extends TestCase {
 	 *
 	 * @param string $thousands_sep Thousands seperator.
 	 * @param string $decimal_sep   Decimal seperator.
-	 * @param string $string        String value to convert.
+	 * @param string $value         String value to convert.
 	 * @param float  $expected      Expected float value.
 	 */
-	public function test_string_to_amount( $thousands_sep, $decimal_sep, $string, $expected ) {
+	public function test_string_to_amount( $thousands_sep, $decimal_sep, $value, $expected ) {
 		global $wp_locale;
 
 		$wp_locale->number_format['thousands_sep'] = $thousands_sep;
 		$wp_locale->number_format['decimal_point'] = $decimal_sep;
 
-		$number = $this->parser->parse( $string );
+		$number = $this->parser->parse( $value );
 
-		$value = $number->get_value();
+		$result = $number->get_value();
 
-		$this->assertSame( $expected, $value );
+		$this->assertSame( $expected, $result );
 	}
 
 	/**
