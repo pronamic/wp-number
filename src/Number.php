@@ -338,8 +338,7 @@ class Number implements JsonSerializable {
 			throw new \InvalidArgumentException(
 				\sprintf(
 					'Number::parse_int() function only accepts integers. Input was: %s',
-					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export
-					\var_export( $value, true )
+					\esc_html( \wp_json_encode( $value ) )
 				)
 			);
 		}
@@ -366,8 +365,7 @@ class Number implements JsonSerializable {
 			throw new \InvalidArgumentException(
 				\sprintf(
 					'Number::from_float() function only accepts floats. Input was: %s',
-					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export
-					\var_export( $value, true )
+					\esc_html( \wp_json_encode( $value ) )
 				)
 			);
 		}
@@ -442,7 +440,7 @@ class Number implements JsonSerializable {
 		throw new \InvalidArgumentException(
 			\sprintf(
 				'No numerical value: %s.',
-				$value
+				\esc_html( $value )
 			)
 		);
 	}
@@ -475,7 +473,7 @@ class Number implements JsonSerializable {
 		throw new \InvalidArgumentException(
 			\sprintf(
 				'Unsupported type, input was of type: %s.',
-				\gettype( $value )
+				\esc_html( \gettype( $value ) )
 			)
 		);
 	}
