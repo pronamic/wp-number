@@ -444,14 +444,14 @@ class NumberTest extends TestCase {
 
 		$calculator = $calculator_property->getValue();
 
-		$calculator_property->setValue( null );
+		$reflection->setStaticPropertyValue( 'calculator', null );
 
 		$calculators_property = $reflection->getProperty( 'calculators' );
 		$calculators_property->setAccessible( true );
 
 		$calculators = $calculators_property->getValue();
 
-		$calculators_property->setValue( [] );
+		$reflection->setStaticPropertyValue( 'calculators', [] );
 
 		$number_1 = new Number( '1' );
 		$number_2 = new Number( '2' );
