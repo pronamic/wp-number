@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.1] - 2024-05-15
+
+### Commits
+
+- Fixed "Deprecated: Calling ReflectionProperty::setValue() with a single argument is deprecated". ([803e7d7](https://github.com/pronamic/wp-number/commit/803e7d7257aa751a525daa21ab6ac98cb414c664))
+- Fixed "All output should be run through an escaping function". ([754b9da](https://github.com/pronamic/wp-number/commit/754b9da30b383afb982dc3d9c52fa1118df86790))
+- Fixed "It is recommended not to use reserved keyword "string" as function parameter name. Found: $string". ([a903388](https://github.com/pronamic/wp-number/commit/a90338889b20992b35898675456e033629e6236d))
+- Fixed "It is recommended not to use reserved keyword "string" as function parameter name. Found: $string". ([52a8a30](https://github.com/pronamic/wp-number/commit/52a8a309a1bbd205175049b1390a19b540fdab59))
+- Updated composer.json ([70aa3de](https://github.com/pronamic/wp-number/commit/70aa3dee3d6a03d222d501f3c2bc1892866fa23d))
+
+Full set of changes: [`1.3.0...1.3.1`][1.3.1]
+
+[1.3.1]: https://github.com/pronamic/wp-number/compare/v1.3.0...v1.3.1
+
 ## [1.3.0] - 2023-03-21
 
 ### Commits
