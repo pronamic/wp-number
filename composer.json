@@ -54,9 +54,12 @@
 		"overtrue/phplint": "^4.5",
 		"php-coveralls/php-coveralls": "^2.5",
 		"phpmd/phpmd": "^2.13",
+		"phpstan/phpstan": "^1.11",
 		"pronamic/pronamic-cli": "^1.1",
 		"pronamic/wp-coding-standards": "^2.2",
 		"roots/wordpress": "^6.0",
+		"szepeviktor/phpstan-wordpress": "^1.3",
+		"vimeo/psalm": "^5.24",
 		"wp-phpunit/wp-phpunit": "^6.1",
 		"yoast/phpunit-polyfills": "^1.0"
 	},
@@ -85,8 +88,6 @@
 			"for file in vendor/koodimonni-plugin-language/*/*.mo ; do ln -f -s ../../../../../../$file vendor/wp-phpunit/wp-phpunit/data/languages/plugins/. ; done",
 			"for file in vendor/koodimonni-theme-language/*/*.mo ; do ln -f -s ../../../../../../$file vendor/wp-phpunit/wp-phpunit/data/languages/themes/. ; done"
 		],
-		"post-install-cmd": "echo 'Optionally run: composer bin all install'",
-		"post-update-cmd": "echo 'Optionally run: composer bin all update'",
 		"psalm": "vendor/bin/psalm"
 	}
 }
