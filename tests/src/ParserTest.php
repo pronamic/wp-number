@@ -138,7 +138,7 @@ class ParserTest extends TestCase {
 			[ '.', ',', '-1.250,-', '-1250' ],
 			[ '', '', '123456789', '123456789' ],
 			[ false, false, '123 456 789', '123456789' ],
-			// https://github.com/pronamic/wp-pronamic-pay-gravityforms/issues/40#issuecomment-2106892669
+			// @link https://github.com/pronamic/wp-pronamic-pay-gravityforms/issues/40#issuecomment-2106892669
 			[ '.', ',', '2,5 stuks', '2.5' ],
 			[ '.', ',', '2,500 stuks', '2.5' ],
 			[ '.', ',', '2.500 stuks', '2500' ],
