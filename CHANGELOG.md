@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.2] - 2024-06-07
+
+### Commits
+
+- Move PHPStan and Psalm from vendor-bin directory. ([900dd94](https://github.com/pronamic/wp-number/commit/900dd944a8709ee7380e131963c0362481e9728a))
+- Coding standards. ([af59d9c](https://github.com/pronamic/wp-number/commit/af59d9ced7fdc99d29a8905001e34285c5e18439))
+- Added test for https://github.com/pronamic/wp-pronamic-pay-gravityforms/issues/40#issuecomment-2106892669. ([1bd35aa](https://github.com/pronamic/wp-number/commit/1bd35aacb21c7fb22ecb768f596ee853e1e3b2a9))
+
+Full set of changes: [`1.3.1...1.3.2`][1.3.2]
+
+[1.3.2]: https://github.com/pronamic/wp-number/compare/v1.3.1...v1.3.2
+
 ## [1.3.1] - 2024-05-15
 
 ### Commits
