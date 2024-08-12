@@ -338,7 +338,7 @@ class Number implements JsonSerializable {
 			throw new \InvalidArgumentException(
 				\sprintf(
 					'Number::parse_int() function only accepts integers. Input was: %s',
-					\esc_html( \wp_json_encode( $value ) )
+					\esc_html( (string) \wp_json_encode( $value ) )
 				)
 			);
 		}
@@ -365,7 +365,7 @@ class Number implements JsonSerializable {
 			throw new \InvalidArgumentException(
 				\sprintf(
 					'Number::from_float() function only accepts floats. Input was: %s',
-					\esc_html( \wp_json_encode( $value ) )
+					\esc_html( (string) \wp_json_encode( $value ) )
 				)
 			);
 		}
