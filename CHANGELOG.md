@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.3] - 2024-12-17
+
+### Commits
+
+- Happy 2024. ([5e3574f](https://github.com/pronamic/wp-number/commit/5e3574f96d306f3c014f4ccc0b332ca9516d85ca))
+
+Full set of changes: [`1.3.2...1.3.3`][1.3.3]
+
+[1.3.3]: https://github.com/pronamic/wp-number/compare/v1.3.2...v1.3.3
+
 ## [1.3.2] - 2024-06-07
 
 ### Commits
