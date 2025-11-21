@@ -77,6 +77,27 @@ class Number implements JsonSerializable {
 	}
 
 	/**
+	 * Format i18n.
+	 *
+	 * @return string
+	 */
+	public function format_i18n_non_trailing_zeros() {
+		$decimals = 0;
+		
+		$value = $this->get_value();
+
+		if ( false !== \strpos( $value, '.' ) ) {
+			$decimals = \substr( \strrchr( $value, '.' ), 1 );
+
+			$decimals = \rtrim( $decimals, '0' );
+
+			$decimals = \strlen( $decimals );
+		}
+
+		return $this->format_i18n( $decimals );
+	}
+
+	/**
 	 * Format.
 	 *
 	 * @param int         $decimals            Precision of the number of decimal places.
