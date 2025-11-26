@@ -77,7 +77,7 @@ class Number implements JsonSerializable {
 	}
 
 	/**
-	 * Format i18n.
+	 * Format number with internationalization and without trailing zeros.
 	 *
 	 * @return string
 	 */
