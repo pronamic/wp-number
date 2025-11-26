@@ -77,6 +77,27 @@ class Number implements JsonSerializable {
 	}
 
 	/**
+	 * Format number with internationalization and without trailing zeros.
+	 *
+	 * @return string
+	 */
+	public function format_i18n_non_trailing_zeros() {
+		$value = $this->get_value();
+
+		$decimals = 0;
+
+		$decimal_pos = \strpos( $value, '.' );
+
+		if ( false !== $decimal_pos ) {
+			$decimal_part = \substr( $value, $decimal_pos + 1 );
+
+			$decimals = \strlen( \rtrim( $decimal_part, '0' ) );
+		}
+
+		return $this->format_i18n( $decimals );
+	}
+
+	/**
 	 * Format.
 	 *
 	 * @param int         $decimals            Precision of the number of decimal places.
@@ -203,6 +224,15 @@ class Number implements JsonSerializable {
 	 */
 	public function negative() {
 		return self::from_int( 0 )->subtract( $this );
+	}
+
+	/**
+	 * Is whole number?
+	 *
+	 * @return bool
+	 */
+	public function is_whole_number() {
+		return (float) $this->to_int() === (float) $this->get_value();
 	}
 
 	/**
