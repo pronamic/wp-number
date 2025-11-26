@@ -227,6 +227,15 @@ class Number implements JsonSerializable {
 	}
 
 	/**
+	 * Is whole number?
+	 *
+	 * @return bool
+	 */
+	public function is_whole_number() {
+		return (float) $this->to_int() === (float) $this->get_value();
+	}
+
+	/**
 	 * JSON serialize.
 	 *
 	 * @link https://www.php.net/manual/en/jsonserializable.jsonserialize.php
