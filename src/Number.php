@@ -82,16 +82,16 @@ class Number implements JsonSerializable {
 	 * @return string
 	 */
 	public function format_i18n_non_trailing_zeros() {
-		$decimals = 0;
-		
 		$value = $this->get_value();
 
-		if ( false !== \strpos( $value, '.' ) ) {
-			$decimals = \substr( \strrchr( $value, '.' ), 1 );
+		$decimals = 0;
 
-			$decimals = \rtrim( $decimals, '0' );
+		$decimal_pos = \strpos( $value, '.' );
 
-			$decimals = \strlen( $decimals );
+		if ( false !== $decimal_pos ) {
+			$decimal_part = \substr( $value, $decimal_pos + 1 );
+
+			$decimals = \strlen( \rtrim( $decimal_part, '0' ) );
 		}
 
 		return $this->format_i18n( $decimals );
