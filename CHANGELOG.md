@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2025-11-26
+
+### Commits
+
+- Added `Number::is_whole_number()` helper method. ([a1833c8](https://github.com/pronamic/wp-number/commit/a1833c8efc9e022b234ff56f6a13d738e20edcec))
+- Added `Number::format_i18n_non_trailing_zeros()` method to format internationally without trailing zeros. ([6e77ead](https://github.com/pronamic/wp-number/commit/6e77ead1a5007326dc302ad765532a5c369dacf0))
+
+Full set of changes: [`1.3.3...1.4.0`][1.4.0]
+
+[1.4.0]: https://github.com/pronamic/wp-number/compare/v1.3.3...v1.4.0
+
 ## [1.3.3] - 2024-12-17
 
 ### Commits
