@@ -35,7 +35,8 @@
 			"dealerdirect/phpcodesniffer-composer-installer": true,
 			"roots/wordpress-core-installer": true,
 			"bamarni/composer-bin-plugin": true
-		}
+		},
+		"wp-slug": "wp-number"
 	},
 	"repositories": [
 		{
