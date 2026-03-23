@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.1] - 2026-03-23
+
+### Changed
+
+- Added Composer `wp-slug` configuration (`wp-number`) to improve tooling and distribution metadata consistency. ([7346789](https://github.com/pronamic/wp-number/commit/7346789c22dc95f0a9c5faf043b294fb74e08b2f))
+
+Full set of changes: [`1.4.0...1.4.1`][1.4.1]
+
+[1.4.1]: https://github.com/pronamic/wp-number/compare/v1.4.0...v1.4.1
+
 ## [1.4.0] - 2025-11-26
 
 ### Commits
@@ -98,7 +108,7 @@ Full set of changes: [`1.1.1...1.2.0`][1.2.0]
 ### Added
 - First release.
 
-[Unreleased]: https://github.com/pronamic/wp-number/compare/1.1.1...HEAD
+[Unreleased]: https://github.com/pronamic/wp-number/compare/v1.4.1...HEAD
 [1.1.0]: https://github.com/pronamic/wp-number/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/pronamic/wp-number/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/pronamic/wp-number/releases/tag/1.0.0
